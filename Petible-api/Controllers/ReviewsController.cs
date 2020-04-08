@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Petible_api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class ReviewsController : ControllerBase
     {
@@ -19,7 +19,7 @@ namespace Petible_api.Controllers
         }
 
         // GET: api/Reviews/5
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id}")]
         public string Get(int id)
         {
             return "value";
