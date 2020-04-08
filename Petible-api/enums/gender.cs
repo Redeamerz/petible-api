@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Petible_api.Models
+namespace Petible_api.enums
 {
-    public class PetType
+    public enum gender
     {
+        MALE,
+        FEMALE
     }
 }
