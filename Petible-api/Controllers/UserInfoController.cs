@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Petible_api.Interfaces;
+using Petible_api.Models;
 
 namespace Petible_api.Controllers
 {
@@ -11,11 +13,18 @@ namespace Petible_api.Controllers
     [ApiController]
     public class UserInfoController : ControllerBase
     {
+        private readonly IMapperSession session;
+
+        public UserInfoController(IMapperSession session)
+        {
+            this.session = session;
+        }
         // GET: api/UserInfo
         [HttpGet]
-        public IEnumerable<string> Get()
+        public List<UserInfo> Get()
         {
-            return new string[] { "value1", "value2" };
+            var userinfo = session.userInfo.ToList();
+            return userinfo;
         }
 
         // GET: api/UserInfo/5
