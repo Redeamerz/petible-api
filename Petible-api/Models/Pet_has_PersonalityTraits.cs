@@ -9,5 +9,11 @@ namespace Petible_api.Models
     {
         public int idPet { get; set; }
         public int idPersonalityTraits { get; set; }
+
+        public Pet_has_PersonalityTraits(int idPet, int idPersonalityTraits)
+        {
+            this.idPet = idPet;
+            this.idPersonalityTraits = idPersonalityTraits;
         }
+    }
 }

@@ -18,5 +18,19 @@ namespace Petible_api.Models
         public string description { get; set; }
         public short timeFreePerDayInMinutes { get; set; }
         public bool otherPets { get; set; }
+
+        public UserInfo(Guid idUserInfo, Guid idUser, string city, DateTime dateOfBirth, bool children, bool gender, string nickname, string description, short timeFreePerDayInMinutes, bool otherPets)
+        {
+            this.idUserInfo = idUserInfo;
+            this.idUser = idUser;
+            this.city = city;
+            this.dateOfBirth = dateOfBirth;
+            this.children = children;
+            this.gender = gender;
+            this.nickname = nickname;
+            this.description = description;
+            this.timeFreePerDayInMinutes = timeFreePerDayInMinutes;
+            this.otherPets = otherPets;
+        }
     }
 }

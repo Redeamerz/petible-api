@@ -4,18 +4,19 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Petible_api.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
     public class AnimalShelterController : ControllerBase
-    {
+    { 
         // GET: api/AnimalShelter
         [HttpGet]
-        public IEnumerable<string> Gets()
+        public string Get()
         {
-            return new string[] { "value1", "value2" };
+        return "";
         }
 
         // GET: api/AnimalShelter/5

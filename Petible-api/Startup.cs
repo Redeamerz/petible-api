@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.StaticFiles;
+using Microsoft.EntityFrameworkCore;
 
 namespace Petible_api
 {
@@ -35,6 +36,7 @@ namespace Petible_api
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Petible API", Version = "v1" });
             });
 
+            //services.AddDbContext<PetibleContext>(options => options.UseMySql(Configuration.GetConnectionString("defaultConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

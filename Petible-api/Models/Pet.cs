@@ -19,8 +19,23 @@ namespace Petible_api.Models
         public bool goodWithChildren { get; set; }
         public bool sterilzed { get; set; }
         public bool vaccinesUpToDate { get; set; }
-        public bool medicalBackpack { get; set; }
         public int costs { get; set; }
 
+        public Pet(int idPet, Guid idUser, string petType, string name, DateTime dateOfBirth, bool gender, string description, DateTime inAnimalShelterSince, bool chipped, bool goodWithChildren, bool sterilzed, bool vaccinesUpToDate, int costs)
+        {
+            this.idPet = idPet;
+            this.idUser = idUser;
+            PetType = petType;
+            this.name = name;
+            this.dateOfBirth = dateOfBirth;
+            this.gender = gender;
+            this.description = description;
+            this.inAnimalShelterSince = inAnimalShelterSince;
+            this.chipped = chipped;
+            this.goodWithChildren = goodWithChildren;
+            this.sterilzed = sterilzed;
+            this.vaccinesUpToDate = vaccinesUpToDate;
+            this.costs = costs;
+        }
     }
 }
