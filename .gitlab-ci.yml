@@ -4,7 +4,7 @@ stages:
 dotnet-build:
     image: mcr.microsoft.com/dotnet/core/sdk:3.1
     before_script:
-        - "dotnet restore ./petible-api"
+        - "dotnet restore ./Petible-api"
     script:
-        - "dotnet build ./petible-api/Account-Service.sln"
+        - "dotnet build ./Petible-api/Petible-api.sln"
     stage: dotnet-build
