@@ -20,5 +20,5 @@ docker-build-push:
         - "docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}"
     script:
         - "docker build --tag ${ORG_NAME}/${DOCKER_CONTAINER_NAME} Petible-api"
-        - "docker push ${ORG_NAME}/${DOCKER_CONTAINER_NAME}"
+        - "docker push petibles/${DOCKER_CONTAINER_NAME}"
     stage: docker-build-push
