@@ -14,6 +14,8 @@ using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
 using Petible_api.NHibernate;
+using Petible_api.Interfaces;
+using Petible_api.Repository;
 
 namespace Petible_api
 {
@@ -38,7 +40,11 @@ namespace Petible_api
             });
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
 
-            services.AddNHibernate(connectionString);
+            //services.AddNHibernate(connectionString);
+            var sessionFactory = SessionFactory.Init(connectionString);
+            services.AddSingleton(factory => sessionFactory);
+            services.AddScoped<IUnitOfWork, NHUnitOfWork>();
+            services.AddTransient<IUserInfoRepository, UserInfoRepository>();
             services.AddControllersWithViews();
         }
 

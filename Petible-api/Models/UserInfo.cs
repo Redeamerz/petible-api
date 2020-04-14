@@ -8,10 +8,10 @@ namespace Petible_api.Models
 {
     public class UserInfo
     {
-        public virtual Guid idUserInfo { get; set; }
+        public virtual Guid id { get; set; }
         public virtual Guid idUser { get; set; }
         public virtual string city { get; set; }
-        public virtual int dateOfBirth { get; set; }
+        public virtual DateTime dateOfBirth { get; set; }
         public virtual bool children { get; set; }
         public virtual bool gender { get; set; }
         public virtual string nickname { get; set; }

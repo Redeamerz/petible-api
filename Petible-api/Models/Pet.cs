@@ -7,7 +7,7 @@ namespace Petible_api.Models
 {
     public class Pet
     {
-        public int idPet { get; set; }
+        public Guid idPet { get; set; }
         public Guid idUser { get; set; }
         public string PetType { get; set; }
         public string name { get; set; }
@@ -21,7 +21,7 @@ namespace Petible_api.Models
         public bool vaccinesUpToDate { get; set; }
         public int costs { get; set; }
 
-        public Pet(int idPet, Guid idUser, string petType, string name, DateTime dateOfBirth, bool gender, string description, DateTime inAnimalShelterSince, bool chipped, bool goodWithChildren, bool sterilzed, bool vaccinesUpToDate, int costs)
+        public Pet(Guid idPet, Guid idUser, string petType, string name, DateTime dateOfBirth, bool gender, string description, DateTime inAnimalShelterSince, bool chipped, bool goodWithChildren, bool sterilzed, bool vaccinesUpToDate, int costs)
         {
             this.idPet = idPet;
             this.idUser = idUser;
