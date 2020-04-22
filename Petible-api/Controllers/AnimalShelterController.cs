@@ -2,21 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Petible_api.Controllers
 {
+    [Authorize]
     [Route("api/v1/[controller]")]
     [ApiController]
     public class AnimalShelterController : ControllerBase
     { 
         // GET: api/AnimalShelter
+        
         [HttpGet]
         public string Get()
         {
-        return "";
+        return "test";
         }
 
         // GET: api/AnimalShelter/5
