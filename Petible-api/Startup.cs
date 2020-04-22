@@ -19,7 +19,6 @@ using Petible_api.Interfaces;
 using Petible_api.Repository;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using AspNetCore.Firebase.Authentication.Extensions;
 
 namespace Petible_api
 {
