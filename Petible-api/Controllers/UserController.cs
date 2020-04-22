@@ -1,9 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Petible_api.Interfaces;
+using Petible_api.Mapping;
+using Petible_api.Models;
 
 namespace Petible_api.Controllers
 {
@@ -11,29 +12,46 @@ namespace Petible_api.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        // GET: api/User
+        IUnitOfWork uow = null;
+        IUserRepository userRepository = null;
+
+        public UserController(IUnitOfWork uow, IUserRepository userRepository)
+        {
+            this.uow = uow;
+            this.userRepository = userRepository;
+        }
+
+        // GET: api/UserInfo
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<List<User>> GetAsync()
         {
-            return new string[] { "value1", "value2" };
+            return await userRepository.ListAll();
         }
 
-        // GET: api/User/5
+        //GET: api/UserInfo/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<User> Get(int id)
         {
-            return "value";
+            string guid = new string("asdfawfawef2qf4af");
+            return await userRepository.FindBy(guid);
         }
 
-        // POST: api/User
-        [HttpPost]
-        public void Post([FromBody] string value)
+        //POST: api/User
+       [HttpPut]
+       [ProducesResponseType(StatusCodes.Status201Created)]
+        public void Put()
         {
+
+            User user = new User();
+            user.idUser = "67aea08b-849f-11ea-ab04-005056a73cc6";
+            user.email = "randomemailhere@dddd.nl";
+            userRepository.Save(user);
+            uow.Commit();
         }
 
         // PUT: api/User/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Puta(int id, [FromBody] string value)
         {
         }
 

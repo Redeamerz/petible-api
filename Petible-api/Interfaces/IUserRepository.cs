@@ -2,7 +2,7 @@
 
 namespace Petible_api.Interfaces
 {
-    public interface IUserInfoRepository : IRepository<UserInfo, string>
+    public interface IUserRepository : IRepository<User, string>
     {
     }
 }

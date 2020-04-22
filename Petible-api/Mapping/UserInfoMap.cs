@@ -7,7 +7,7 @@ namespace Petible_api.Mapping
     {
         public UserInfoMap()
         {
-            Table("UserInfo");
+            Table("userinfo");
             Id(x => x.id, "id");
             Map(x => x.city);
 
@@ -17,11 +17,11 @@ namespace Petible_api.Mapping
 
             Map(x => x.gender);
 
-            Map(x => x.nickname);
+            Map(x => x.username);
 
             Map(x => x.description);
 
-            Map(x => x.timeFreePerDayInMinutes);
+            Map(x => x.timeFree_id);
 
             Map(x => x.otherPets);
         }

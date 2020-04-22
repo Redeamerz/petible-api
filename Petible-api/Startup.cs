@@ -45,6 +45,7 @@ namespace Petible_api
             services.AddSingleton(factory => sessionFactory);
             services.AddScoped<IUnitOfWork, NHUnitOfWork>();
             services.AddTransient<IUserInfoRepository, UserInfoRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
             services.AddControllersWithViews();
         }
 
