@@ -8,7 +8,7 @@ namespace Petible_api.Models
 {
     public class User
     {        
-        public virtual string idUser { get; set; }
+        public virtual string id { get; set; }
         public virtual string email { get; set; }
     }
 }

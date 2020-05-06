@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace Petible_api.Models
 {
-    public class Pet_has_PersonalityTraits
+    public class Pet_has_PetType
     {
         public virtual string pet_id { get; set; }
-        public virtual int personalitytraits_id { get; set; }
+        public virtual string petType_id { get; set; }
     }
 }

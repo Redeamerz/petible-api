@@ -43,7 +43,7 @@ namespace Petible_api.Controllers
         {
 
             User user = new User();
-            user.idUser = "67aea08b-849f-11ea-ab04-005056a73cc6";
+            user.id = "67aea08b-849f-11ea-ab04-005056a73cc6";
             user.email = "randomemailhere@dddd.nl";
             userRepository.Save(user);
             uow.Commit();

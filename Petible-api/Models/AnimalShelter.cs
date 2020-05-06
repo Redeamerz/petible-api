@@ -7,13 +7,13 @@ namespace Petible_api.Models
 {
     public class AnimalShelter
     {
-        public string idAnimalShelter { get; set; }
-        public string idUser { get; set; }
-        public string name { get; set; }
-        public string website { get; set; }
-        public string location { get; set; }
-        public string phoneNumber { get; set; }
-        public string email { get; set; }
+        public virtual string id { get; set; }
+        public virtual string name { get; set; }
+        public virtual string website { get; set; }
+        public virtual string location { get; set; }
+        public virtual string phoneNumber { get; set; }
+        public virtual string email { get; set; }
+        public virtual string description { get; set; }
 
     }
 }

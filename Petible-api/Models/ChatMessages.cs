@@ -7,11 +7,10 @@ namespace Petible_api.Models
 {
     public class ChatMessages
     {
-        public string idChatMessage { get; set; }
-        public string idMatches { get; set; }
-        public int rating { get; set; }
-        public string message { get; set; }
-        public string source { get; set; }
-        public string target { get; set; }
+        public virtual string id { get; set; }
+        public virtual string user_id_source { get; set; }
+        public virtual string user_id_target { get; set; }
+        public virtual string matches_id { get; set; }
+        public virtual string message { get; set; }
     }
 }

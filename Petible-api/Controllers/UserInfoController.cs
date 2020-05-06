@@ -29,23 +29,21 @@ namespace Petible_api.Controllers
 
         // GET: api/UserInfo/5
         [HttpGet("{id}")]
-        public async Task<UserInfo> Get(int id)
+        public async Task<UserInfo> Get([FromBody]UserInfo user)
         {
-            string guid = new string("af12a189-7e38-11ea-a63b-005056a73cc6");
-            return await userInfoRepository.FindBy(guid);
+            return await userInfoRepository.FindBy(user.id);
         }
 
         // POST: api/UserInfo
-        [HttpPost]
-        public async void Post()
+        [HttpPut]
+        public async Task<IActionResult> Post([FromBody]UserInfo userInfo)
         {
-            UserInfo userInfo = new UserInfo();
-            userInfo.id = "98549fc0-847c-11ea-a63b-005056a73cc6";
-            userInfo.gender = false;
-            userInfo.username = "randoname";
             await userInfoRepository.Save(userInfo);
+            await uow.Commit();
+            return Created("petible.nl", userInfo.id);
+            
         }
-
+            
         // PUT: api/UserInfo/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)

@@ -8,8 +8,8 @@ namespace Petible_api.Mapping
         public UserMap()
         {
             Table("user");
-            Id(x => x.idUser, "id");
-            Map(x => x.email);
+            Id(x => x.id, "id").Column("id");
+            Map(x => x.email).Column("username");
         }
 
     }
