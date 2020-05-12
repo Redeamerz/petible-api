@@ -24,6 +24,7 @@ namespace Petible_api.Controllers
 
         // GET: api/UserInfo
         [HttpGet]
+        [Produces("application/json")]
         public async Task<IActionResult> GetAsync()
         {
             return Ok(await userRepository.ListAll());
@@ -31,9 +32,10 @@ namespace Petible_api.Controllers
 
         //GET: api/UserInfo/GUID
         [HttpGet("{id}")]
+        [Produces("application/json")]
         public async Task<IActionResult> Get(string id)
         {
-            User user = await userRepository.FindBy(id);
+            User user = await userRepository.FindById(id);
             if (user == null) return BadRequest();
             else return Ok(user);
         }
@@ -46,7 +48,7 @@ namespace Petible_api.Controllers
             {
                 await userRepository.Save(user);
                 await uow.Commit();
-                return Created("lifelinks.nl/User", user.id);
+                return Created("petible.nl/User", user.id);
             }
             catch
             {

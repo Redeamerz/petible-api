@@ -23,6 +23,7 @@ namespace Petible_api.Controllers
 
         // GET: api/UserInfo
         [HttpGet]
+        [Produces("application/json")]
         public async Task<IActionResult> GetAsync()
         {
             return Ok(await userInfoRepository.ListAll());
@@ -30,23 +31,23 @@ namespace Petible_api.Controllers
 
         // GET: api/UserInfo/GUID
         [HttpGet("{id}")]
+        [Produces("application/json")]
         public async Task<IActionResult> Get(string id)
         {
-            UserInfo userinfo = await userInfoRepository.FindBy(id);
+            UserInfo userinfo = await userInfoRepository.FindById(id);
             if (userinfo == null) return BadRequest();
             else return Ok(userinfo);
         }
 
         // POST: api/UserInfo
         [HttpPut]
-        [Produces("application/json")]
         public async Task<IActionResult> Post([FromBody]UserInfo userInfo)
         {
             try
             {
                 await userInfoRepository.Save(userInfo);
                 await uow.Commit();
-                return Created("petible.nl", userInfo.id);
+                return Created("petible.nl/userinfo", userInfo.id);
             }
             catch
             {
@@ -60,9 +61,17 @@ namespace Petible_api.Controllers
         [HttpDelete]
         public async Task<IActionResult> Delete([FromBody] UserInfo userInfo)
         {
-            await userInfoRepository.Remove(userInfo);
-            await uow.Commit();
-            return NoContent();
+            try
+            {
+                await userInfoRepository.Remove(userInfo);
+                await uow.Commit();
+                return NoContent();
+            }
+            catch
+            {
+                return BadRequest();
+            }
+
         }
 
     }

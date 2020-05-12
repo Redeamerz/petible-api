@@ -5,43 +5,69 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Petible_api.Interfaces;
+using Petible_api.Models;
 
 namespace Petible_api.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
     public class AnimalShelterController : ControllerBase
-    { 
+    {
+        IUnitOfWork uow = null;
+        IAnimalShelterRepository animalShelterRepository = null;
+
+        public AnimalShelterController(IUnitOfWork uow, IAnimalShelterRepository animalShelterRepository)
+        {
+            this.uow = uow;
+            this.animalShelterRepository = animalShelterRepository;
+        }
         // GET: api/AnimalShelter
         [HttpGet]
-        public string Get()
+        [Produces("application/json")]
+        public async Task<IActionResult> Get()
         {
-        return "";
+            return Ok(await animalShelterRepository.ListAll());
         }
 
-        // GET: api/AnimalShelter/5
+        // GET: api/AnimalShelter/GUID
         [HttpGet("{id}")]
-        public string Gets(int id)
+        [Produces("application/json")]
+        public async Task<IActionResult> Get(string id)
         {
-            return "value";
+            AnimalShelter animalShelter = await animalShelterRepository.FindById(id);
+            if (animalShelter == null) return BadRequest();
+            else return Ok(animalShelter);
         }
 
-        // POST: api/AnimalShelter
-        [HttpPost]
-        public void Posts([FromBody] string value)
+        // PUT: api/AnimalShelter
+        [HttpPut]
+        public async Task<IActionResult> Post([FromBody] AnimalShelter animalShelter)
         {
-        }
+            try
+            {
+                await animalShelterRepository.Save(animalShelter);
+                await uow.Commit();
+                return Created("petible.nl/animalshelter", animalShelter.id);
+            } catch
+            {
+                return BadRequest();
+            }
 
-        // PUT: api/AnimalShelter/5
-        [HttpPut("{id}")]
-        public void Puts(int id, [FromBody] string value)
-        {
         }
 
         // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Deletes(int id)
+        [HttpDelete]
+        public async Task<IActionResult> Deletes([FromBody] AnimalShelter animalShelter)
         {
+            try
+            {
+                await animalShelterRepository.Remove(animalShelter);
+                return NoContent();
+            } catch
+            {
+                return BadRequest();
+            }
         }
     }
 }
