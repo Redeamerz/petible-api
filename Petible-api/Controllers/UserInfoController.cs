@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -27,11 +28,13 @@ namespace Petible_api.Controllers
             return Ok(await userInfoRepository.ListAll());
         }
 
-        // GET: api/UserInfo/5
+        // GET: api/UserInfo/GUID
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get([FromBody]UserInfo user)
+        public async Task<IActionResult> Get(string id)
         {
-            return Ok(await userInfoRepository.FindBy(user.id));
+            UserInfo userinfo = await userInfoRepository.FindBy(id);
+            if (userinfo == null) return BadRequest();
+            else return Ok(userinfo);
         }
 
         // POST: api/UserInfo
@@ -39,22 +42,28 @@ namespace Petible_api.Controllers
         [Produces("application/json")]
         public async Task<IActionResult> Post([FromBody]UserInfo userInfo)
         {
-            await userInfoRepository.Save(userInfo);
-            await uow.Commit();
-            return Created("petible.nl", userInfo.id);
+            try
+            {
+                await userInfoRepository.Save(userInfo);
+                await uow.Commit();
+                return Created("petible.nl", userInfo.id);
+            }
+            catch
+            {
+                return BadRequest();
+            }
+            
             
         }
             
         // PUT: api/UserInfo/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpDelete]
+        public async Task<IActionResult> Delete([FromBody] UserInfo userInfo)
         {
+            await userInfoRepository.Remove(userInfo);
+            await uow.Commit();
+            return NoContent();
         }
 
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }

@@ -48,23 +48,27 @@ namespace Petible_api.Controllers
                 await uow.Commit();
                 return Created("lifelinks.nl/User", user.id);
             }
-            catch(Exception x)
+            catch
             {
                 return BadRequest();
             }
 
         }
 
-        // PUT: api/User/5
-        [HttpPut("{id}")]
-        public void Puta(int id, [FromBody] string value)
-        {
-        }
-
         // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete]
+        public async Task<IActionResult> Delete([FromBody]User user)
         {
+            try
+            {
+                await userRepository.Remove(user);
+                await uow.Commit();
+                return NoContent();
+            }
+            catch
+            {
+                return BadRequest();
+            }
         }
     }
 }

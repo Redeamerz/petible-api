@@ -35,6 +35,7 @@ namespace Petible_api
         {
             services.AddControllers(options =>
             {
+                //Respecting Accept Header of browser for type of content to return
                 options.RespectBrowserAcceptHeader = true;
                 options.FormatterMappings.SetMediaTypeMappingForFormat("xml", MediaTypeHeaderValue.Parse("text/xml"));
                 options.FormatterMappings.SetMediaTypeMappingForFormat("json", MediaTypeHeaderValue.Parse("application/json"));
@@ -48,7 +49,7 @@ namespace Petible_api
             });
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
 
-            //services.AddNHibernate(connectionString);
+            //Setup Unit of Work 
             var sessionFactory = SessionFactory.Init(connectionString);
             services.AddSingleton(factory => sessionFactory);
             services.AddScoped<IUnitOfWork, NHUnitOfWork>();
