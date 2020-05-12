@@ -16,6 +16,8 @@ using Microsoft.EntityFrameworkCore;
 using Petible_api.NHibernate;
 using Petible_api.Interfaces;
 using Petible_api.Repository;
+using Microsoft.Net.Http.Headers;
+using Google.Protobuf.WellKnownTypes;
 
 namespace Petible_api
 {
@@ -31,7 +33,13 @@ namespace Petible_api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers(options =>
+            {
+                options.RespectBrowserAcceptHeader = true;
+                options.FormatterMappings.SetMediaTypeMappingForFormat("xml", MediaTypeHeaderValue.Parse("text/xml"));
+                options.FormatterMappings.SetMediaTypeMappingForFormat("json", MediaTypeHeaderValue.Parse("application/json"));
+            })
+                .AddXmlSerializerFormatters();
 
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
