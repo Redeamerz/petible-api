@@ -74,7 +74,7 @@ namespace Petible_api
 
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Lifelinks API v1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Petible API v1");
             });
 
             app.UseEndpoints(endpoints =>
