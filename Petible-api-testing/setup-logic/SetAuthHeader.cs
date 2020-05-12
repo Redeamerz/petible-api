@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Petible_api_testing.mock_models;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -10,13 +11,8 @@ namespace Petible_api_testing.setup_logic
 {
     public class SetAuthHeader
     {
-        public async Task<HttpClient> SetAuthorizationHeader(HttpClient client)
-        {
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", await GetJwtAsync(client));
-            return client;
-        }
-
-        private async Task<string> GetJwtAsync(HttpClient _client)
+        HttpClient client = new HttpClient();
+        public async Task<LoginInfo> GetJwtAsync()
         {
             var info = new MockLoginInfo
             {
@@ -25,12 +21,14 @@ namespace Petible_api_testing.setup_logic
                 returnSecureToken = true
             };
             var json = JsonConvert.SerializeObject(info);
+            
 
             var content = new StringContent(json, Encoding.UTF8, "application/json");
-            var token = await _client.PostAsync("https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCUCz3zW6Q21Qf4tuKmCL9vYT6AlygCH1M", content);
-            var tokenresponse = await token.Content.ReadAsStringAsync();
-
-            return tokenresponse;
+            var token = client.PostAsync("https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCUCz3zW6Q21Qf4tuKmCL9vYT6AlygCH1M", content).Result;
+            string result = await token.Content.ReadAsStringAsync();
+            var response = JsonConvert.DeserializeObject<LoginInfo>(result);
+            
+            return response;
         }
     }
 }
