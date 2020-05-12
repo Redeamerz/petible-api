@@ -15,7 +15,7 @@ namespace Petible_api.Models
         public virtual bool gender { get; set; }
         public virtual string username { get; set; }
         public virtual string description { get; set; }
-        public virtual string timeFree { get; set; }
+        public virtual int timeFree { get; set; }
         public virtual bool otherPets { get; set; }
     }
 }
