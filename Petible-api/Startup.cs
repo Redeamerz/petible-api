@@ -33,6 +33,7 @@ namespace Petible_api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
             services.AddControllers(options =>
             {
                 //Respecting Accept Header of browser for type of content to return
@@ -65,6 +66,9 @@ namespace Petible_api
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(
+                options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseHttpsRedirection();
 
