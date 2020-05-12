@@ -22,20 +22,21 @@ namespace Petible_api.Controllers
 
         // GET: api/UserInfo
         [HttpGet]
-        public async Task<List<UserInfo>> GetAsync()
+        public async Task<IActionResult> GetAsync()
         {
-            return await userInfoRepository.ListAll();
+            return Ok(await userInfoRepository.ListAll());
         }
 
         // GET: api/UserInfo/5
         [HttpGet("{id}")]
-        public async Task<UserInfo> Get([FromBody]UserInfo user)
+        public async Task<IActionResult> Get([FromBody]UserInfo user)
         {
-            return await userInfoRepository.FindBy(user.id);
+            return Ok(await userInfoRepository.FindBy(user.id));
         }
 
         // POST: api/UserInfo
         [HttpPut]
+        [Produces("application/json")]
         public async Task<IActionResult> Post([FromBody]UserInfo userInfo)
         {
             await userInfoRepository.Save(userInfo);
