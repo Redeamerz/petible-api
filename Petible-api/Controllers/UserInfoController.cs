@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Petible_api.Interfaces;
 using Petible_api.Models;
-using Petible_api.Repository;
 
 namespace Petible_api.Controllers
 {
@@ -32,18 +29,21 @@ namespace Petible_api.Controllers
 
         // GET: api/UserInfo/5
         [HttpGet("{id}")]
-        public async Task<UserInfo> Get(int id)
+        public async Task<UserInfo> Get([FromBody]UserInfo user)
         {
-            Guid guid = new Guid("af12a189-7e38-11ea-a63b-005056a73cc6");
-            return await userInfoRepository.FindBy(guid);
+            return await userInfoRepository.FindBy(user.id);
         }
 
         // POST: api/UserInfo
-        [HttpPost]
-        public void Post([FromBody] string value)
+        [HttpPut]
+        public async Task<IActionResult> Post([FromBody]UserInfo userInfo)
         {
+            await userInfoRepository.Save(userInfo);
+            await uow.Commit();
+            return Created("petible.nl", userInfo.id);
+            
         }
-
+            
         // PUT: api/UserInfo/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
