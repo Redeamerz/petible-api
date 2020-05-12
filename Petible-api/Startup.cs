@@ -16,6 +16,8 @@ using Microsoft.EntityFrameworkCore;
 using Petible_api.NHibernate;
 using Petible_api.Interfaces;
 using Petible_api.Repository;
+using Microsoft.Net.Http.Headers;
+using Google.Protobuf.WellKnownTypes;
 
 namespace Petible_api
 {
@@ -31,7 +33,15 @@ namespace Petible_api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddCors();
+            services.AddControllers(options =>
+            {
+                //Respecting Accept Header of browser for type of content to return
+                options.RespectBrowserAcceptHeader = true;
+                options.FormatterMappings.SetMediaTypeMappingForFormat("xml", MediaTypeHeaderValue.Parse("text/xml"));
+                options.FormatterMappings.SetMediaTypeMappingForFormat("json", MediaTypeHeaderValue.Parse("application/json"));
+            })
+                .AddXmlSerializerFormatters();
 
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
@@ -40,7 +50,7 @@ namespace Petible_api
             });
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
 
-            //services.AddNHibernate(connectionString);
+            //Setup Unit of Work 
             var sessionFactory = SessionFactory.Init(connectionString);
             services.AddSingleton(factory => sessionFactory);
             services.AddScoped<IUnitOfWork, NHUnitOfWork>();
@@ -56,6 +66,9 @@ namespace Petible_api
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(
+                options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseHttpsRedirection();
 
