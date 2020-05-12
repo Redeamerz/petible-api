@@ -10,10 +10,15 @@ namespace Petible_api.Models
         public virtual string id { get; set; }
         public virtual string name { get; set; }
         public virtual string website { get; set; }
-        public virtual string location { get; set; }
+        public virtual string postalCode { get; set; }
+        public virtual string address { get; set; }
         public virtual string phoneNumber { get; set; }
         public virtual string email { get; set; }
-        public virtual string description { get; set; }
+        public virtual string bio { get; set; }
+        public virtual string facebook { get; set; }
+        public virtual string twitter { get; set; }
+        public virtual string instagram { get; set; }
+        public virtual string linkedin { get; set; }
 
     }
 }
