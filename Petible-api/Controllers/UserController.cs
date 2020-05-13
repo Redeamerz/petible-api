@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -23,42 +24,51 @@ namespace Petible_api.Controllers
 
         // GET: api/UserInfo
         [HttpGet]
-        public async Task<List<User>> GetAsync()
+        public async Task<IActionResult> GetAsync()
         {
-            return await userRepository.ListAll();
+            return Ok(await userRepository.ListAll());
         }
 
-        //GET: api/UserInfo/5
+        //GET: api/UserInfo/GUID
         [HttpGet("{id}")]
-        public async Task<User> Get(int id)
+        public async Task<IActionResult> Get(string id)
         {
-            string guid = new string("asdfawfawef2qf4af");
-            return await userRepository.FindBy(guid);
+            User user = await userRepository.FindById(id);
+            if (user == null) return BadRequest();
+            else return Ok(user);
         }
 
         //POST: api/User
        [HttpPut]
-       [ProducesResponseType(StatusCodes.Status201Created)]
-        public void Put()
+        public async Task<IActionResult> Put([FromBody]User user)
         {
+            try
+            {
+                await userRepository.Save(user);
+                await uow.Commit();
+                return Created("lifelinks.nl/User", user.id);
+            }
+            catch
+            {
+                return BadRequest();
+            }
 
-            User user = new User();
-            user.id = "67aea08b-849f-11ea-ab04-005056a73cc6";
-            user.email = "randomemailhere@dddd.nl";
-            userRepository.Save(user);
-            uow.Commit();
-        }
-
-        // PUT: api/User/5
-        [HttpPut("{id}")]
-        public void Puta(int id, [FromBody] string value)
-        {
         }
 
         // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete]
+        public async Task<IActionResult> Delete([FromBody]User user)
         {
+            try
+            {
+                await userRepository.Remove(user);
+                await uow.Commit();
+                return NoContent();
+            }
+            catch
+            {
+                return BadRequest();
+            }
         }
     }
 }

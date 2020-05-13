@@ -50,6 +50,7 @@ namespace Petible_api_testing.integration_test
 
             //Assert
             response.EnsureSuccessStatusCode();
+            Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
         }
 
         [TestMethod]
@@ -62,6 +63,7 @@ namespace Petible_api_testing.integration_test
 
             //Assert
             response.EnsureSuccessStatusCode();
+            Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
         }
 
         [TestMethod]
@@ -73,7 +75,7 @@ namespace Petible_api_testing.integration_test
             var response = await client.GetAsync(request);
 
             //Assert
-            
+            Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.BadRequest);
         }
 
         

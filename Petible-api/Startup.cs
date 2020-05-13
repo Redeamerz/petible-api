@@ -17,8 +17,13 @@ using Microsoft.EntityFrameworkCore;
 using Petible_api.NHibernate;
 using Petible_api.Interfaces;
 using Petible_api.Repository;
+
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.Net.Http.Headers;
+
+using Microsoft.Net.Http.Headers;
+using Google.Protobuf.WellKnownTypes;
 
 namespace Petible_api
 {
@@ -34,23 +39,24 @@ namespace Petible_api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddCors();
+            services.AddControllers(options =>
+            {
+                //Respecting Accept Header of browser for type of content to return
+                options.RespectBrowserAcceptHeader = true;
+                options.FormatterMappings.SetMediaTypeMappingForFormat("xml", MediaTypeHeaderValue.Parse("text/xml"));
+                options.FormatterMappings.SetMediaTypeMappingForFormat("json", MediaTypeHeaderValue.Parse("application/json"));
+            })
+                .AddXmlSerializerFormatters();
 
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Petible API", Version = "v1" });
             });
-            var connectionString = "";
-            if (env.IsDevelopment())
-            {
-                connectionString = Configuration.GetConnectionString("TestConnection");
-            }
-            else
-            {
-                connectionString = Configuration.GetConnectionString("DefaultConnection");
-            }
-            //services.AddNHibernate(connectionString);
+
+            var connectionString = Configuration.GetConnectionString("DefaultConnection");
+            
             var sessionFactory = SessionFactory.Init(connectionString);
             services
                 .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -66,10 +72,12 @@ namespace Petible_api
                         ValidateLifetime = true
                     };
                 });
+           
             services.AddSingleton(factory => sessionFactory);
             services.AddScoped<IUnitOfWork, NHUnitOfWork>();
             services.AddTransient<IUserInfoRepository, UserInfoRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IAnimalShelterRepository, AnimalShelterRepository>();
             services.AddControllersWithViews();
             
         }
@@ -83,6 +91,9 @@ namespace Petible_api
             }
 
            
+
+            app.UseCors(
+                options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseHttpsRedirection();
 
