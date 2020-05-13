@@ -26,6 +26,10 @@ namespace Petible_api.Mapping
             Map(x => x.timeFree).Column("timeFree");
 
             Map(x => x.otherPets).Column("otherPets");
+
+            Map(x => x.latitude).Column("latitude");
+
+            Map(x => x.longitude).Column("longitude");
         }
     }
 }
