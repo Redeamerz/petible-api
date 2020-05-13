@@ -10,7 +10,7 @@ namespace Petible_api.Interfaces
     {
         Task Save(T entity);
         Task Remove(T entity);
-        Task<T> FindBy(TId id);
+        Task<T> FindById(TId id);
         Task<List<T>> ListAll();
     }
 }

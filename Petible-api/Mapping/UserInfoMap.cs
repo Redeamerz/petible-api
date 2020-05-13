@@ -13,11 +13,7 @@ namespace Petible_api.Mapping
 
             Map(x => x.city).Column("city");
 
-            Map(x => x.dateOfBirth).Column("dateOfBirth");
-
             Map(x => x.children).Column("children");
-
-            Map(x => x.gender).Column("gender");
 
             Map(x => x.username).Column("username");
 
@@ -26,6 +22,10 @@ namespace Petible_api.Mapping
             Map(x => x.timeFree).Column("timeFree");
 
             Map(x => x.otherPets).Column("otherPets");
+
+            Map(x => x.latitude).Column("latitude");
+
+            Map(x => x.longitude).Column("longitude");
         }
     }
 }

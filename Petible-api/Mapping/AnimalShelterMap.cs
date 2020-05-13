@@ -16,6 +16,9 @@ namespace Petible_api.Mapping
             Map(x => x.name).Column("name");
             Map(x => x.website).Column("webite");
             Map(x => x.postalCode).Column("postalCode");
+            Map(x => x.city).Column("city");
+            Map(x => x.latitude).Column("latitude");
+            Map(x => x.longitude).Column("longitude");
             Map(x => x.phoneNumber).Column("phoneNumber");
             Map(x => x.bio).Column("bio");
             Map(x => x.address).Column("address");

@@ -32,14 +32,13 @@ namespace Petible_api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(string id)
         {
-            UserInfo userinfo = await userInfoRepository.FindBy(id);
+            UserInfo userinfo = await userInfoRepository.FindById(id);
             if (userinfo == null) return BadRequest();
             else return Ok(userinfo);
         }
 
         // POST: api/UserInfo
         [HttpPut]
-        [Produces("application/json")]
         public async Task<IActionResult> Post([FromBody]UserInfo userInfo)
         {
             try

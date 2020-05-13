@@ -33,7 +33,7 @@ namespace Petible_api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(string id)
         {
-            User user = await userRepository.FindBy(id);
+            User user = await userRepository.FindById(id);
             if (user == null) return BadRequest();
             else return Ok(user);
         }

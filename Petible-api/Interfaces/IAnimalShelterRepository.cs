@@ -8,5 +8,6 @@ namespace Petible_api.Interfaces
 {
     public interface IAnimalShelterRepository : IRepository<AnimalShelter, string>
     {
+
     }
 }
