@@ -10,6 +10,7 @@ namespace Petible_api.Mapping
             Table("user");
             Id(x => x.id, "id").Column("id");
             Map(x => x.email).Column("email");
+            Map(x => x.role).Column("role");
         }
 
     }
