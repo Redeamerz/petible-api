@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Petible_api.Interfaces;
@@ -9,6 +10,7 @@ using Petible_api.Models;
 
 namespace Petible_api.Controllers
 {
+    [Authorize]
     [Route("api/v1/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
@@ -30,6 +32,7 @@ namespace Petible_api.Controllers
         }
 
         //GET: api/UserInfo/GUID
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(string id)
         {

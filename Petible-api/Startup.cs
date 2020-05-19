@@ -54,7 +54,6 @@ namespace Petible_api
             });
 
             //services.AddNHibernate(connectionString);
-            var sessionFactory = SessionFactory.Init(connectionString);
             services
                 .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
@@ -70,6 +69,7 @@ namespace Petible_api
                     };
                 });
             //Setup Unit of Work 
+            var connectionString = Configuration.GetConnectionString("DefaultConnection");
             var sessionFactory = SessionFactory.Init(connectionString);
             services.AddSingleton(factory => sessionFactory);
             services.AddScoped<IUnitOfWork, NHUnitOfWork>();
