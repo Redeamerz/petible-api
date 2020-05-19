@@ -10,5 +10,6 @@ namespace Petible_api.Models
     {        
         public virtual string id { get; set; }
         public virtual string email { get; set; }
+        public virtual int role { get; set; }
     }
 }
