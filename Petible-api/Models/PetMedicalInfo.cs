@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace Petible_api.Models
 {
-    public class Matches
+    public class PetMedicalInfo
     {
         public virtual string id { get; set; }
-        public virtual int pet_id { get; set; }
-        public virtual bool unmatched { get; set; }
+        public virtual bool chipped { get; set; }
+        public virtual bool vaccinesUptodate { get; set; }
     }
 }

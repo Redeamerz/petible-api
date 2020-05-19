@@ -7,24 +7,25 @@ namespace Petible_api.Mapping
     {
         public UserInfoMap()
         {
-            Table("UserInfo");
-            Id(x => x.id, "id");
-            Map(x => x.city);
+            Table("userinfo");
 
-            Map(x => x.dateOfBirth);
+            Id(x => x.id).Column("id").UniqueKey("id");
 
-            Map(x => x.children);
+            Map(x => x.city).Column("city");
 
-            Map(x => x.gender);
+            Map(x => x.children).Column("children");
 
-            Map(x => x.nickname);
+            Map(x => x.username).Column("username");
 
-            Map(x => x.description);
+            Map(x => x.description).Column("description");
 
-            Map(x => x.timeFreePerDayInMinutes);
+            Map(x => x.timeFree).Column("timeFree");
 
-            Map(x => x.otherPets);
+            Map(x => x.otherPets).Column("otherPets");
+
+            Map(x => x.latitude).Column("latitude");
+
+            Map(x => x.longitude).Column("longitude");
         }
-
     }
 }

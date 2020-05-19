@@ -21,7 +21,9 @@ namespace Petible_api.NHibernate
                 return Fluently.Configure()
                     .Database(MySQLConfiguration.Standard
                     .ConnectionString(connectionString))
-                    .Mappings(m => m.FluentMappings.Add<UserInfoMap>())
+                    .Mappings(m => m.FluentMappings
+                    .AddFromAssemblyOf<UserMap>()
+                    .AddFromAssemblyOf<UserInfoMap>())
                     .ExposeConfiguration(cfg => new SchemaExport(cfg).Create(false, false))
                     .BuildSessionFactory();
         }

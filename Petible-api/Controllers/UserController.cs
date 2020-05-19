@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Petible_api.Interfaces;
+using Petible_api.Mapping;
+using Petible_api.Models;
 
 namespace Petible_api.Controllers
 {
@@ -11,36 +13,62 @@ namespace Petible_api.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        // GET: api/User
+        IUnitOfWork uow = null;
+        IUserRepository userRepository = null;
+
+        public UserController(IUnitOfWork uow, IUserRepository userRepository)
+        {
+            this.uow = uow;
+            this.userRepository = userRepository;
+        }
+
+        // GET: api/UserInfo
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<IActionResult> GetAsync()
         {
-            return new string[] { "value1", "value2" };
+            return Ok(await userRepository.ListAll());
         }
 
-        // GET: api/User/5
+        //GET: api/UserInfo/GUID
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<IActionResult> Get(string id)
         {
-            return "value";
+            User user = await userRepository.FindById(id);
+            if (user == null) return BadRequest();
+            else return Ok(user);
         }
 
-        // POST: api/User
-        [HttpPost]
-        public void Post([FromBody] string value)
+        //POST: api/User
+       [HttpPut]
+        public async Task<IActionResult> Put([FromBody]User user)
         {
-        }
+            try
+            {
+                await userRepository.Save(user);
+                await uow.Commit();
+                return Created("lifelinks.nl/User", user.id);
+            }
+            catch
+            {
+                return BadRequest();
+            }
 
-        // PUT: api/User/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
         }
 
         // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete]
+        public async Task<IActionResult> Delete([FromBody]User user)
         {
+            try
+            {
+                await userRepository.Remove(user);
+                await uow.Commit();
+                return NoContent();
+            }
+            catch
+            {
+                return BadRequest();
+            }
         }
     }
 }

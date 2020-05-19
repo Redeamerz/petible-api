@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.30002.166
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Petible-api", "Petible-api.csproj", "{F9379A26-3C3A-4D87-AB67-4F1883409DF0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Petible-api-testing", "..\Petible-api-testing\Petible-api-testing.csproj", "{90D14378-B44A-423F-84B4-2A069E599378}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{F9379A26-3C3A-4D87-AB67-4F1883409DF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F9379A26-3C3A-4D87-AB67-4F1883409DF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F9379A26-3C3A-4D87-AB67-4F1883409DF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90D14378-B44A-423F-84B4-2A069E599378}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90D14378-B44A-423F-84B4-2A069E599378}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90D14378-B44A-423F-84B4-2A069E599378}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90D14378-B44A-423F-84B4-2A069E599378}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

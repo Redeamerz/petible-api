@@ -6,11 +6,7 @@ using System.Threading.Tasks;
 
 namespace Petible_api.Interfaces
 {
-    public interface IRepository<T,TId>
+    public interface IPetInterface : IRepository<Pet, string>
     {
-        Task Save(T entity);
-        Task Remove(T entity);
-        Task<T> FindById(TId id);
-        Task<List<T>> ListAll();
     }
 }

@@ -7,21 +7,11 @@ namespace Petible_api.Models
 {
     public class Reviews
     {
-        public Guid idReviews { get; set; }
-        public short rating { get; set; }
-        public string source { get; set; }
-        public string target { get; set; }
-        public string title { get; set; }
-        public string text { get; set; }
-
-        public Reviews(Guid idReviews, short rating, string source, string target, string title, string text)
-        {
-            this.idReviews = idReviews;
-            this.rating = rating;
-            this.source = source;
-            this.target = target;
-            this.title = title;
-            this.text = text;
-        }
+        public virtual string id { get; set; }
+        public virtual string user_id_source { get; set; }
+        public virtual string user_id_target { get; set; }
+        public virtual int rating { get; set; }
+        public virtual string title { get; set; }
+        public virtual string text { get; set; }
     }
 }
