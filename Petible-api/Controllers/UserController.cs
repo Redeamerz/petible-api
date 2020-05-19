@@ -10,7 +10,7 @@ using Petible_api.Models;
 
 namespace Petible_api.Controllers
 {
-    [Authorize]
+    
     [Route("api/v1/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
@@ -25,6 +25,7 @@ namespace Petible_api.Controllers
         }
 
         // GET: api/UserInfo
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetAsync()
         {
@@ -42,7 +43,8 @@ namespace Petible_api.Controllers
         }
 
         //POST: api/User
-       [HttpPut]
+        [Authorize]
+        [HttpPut]
         public async Task<IActionResult> Put([FromBody]User user)
         {
             try
@@ -59,6 +61,7 @@ namespace Petible_api.Controllers
         }
 
         // DELETE: api/ApiWithActions/5
+        [Authorize]
         [HttpDelete]
         public async Task<IActionResult> Delete([FromBody]User user)
         {
