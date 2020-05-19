@@ -35,7 +35,7 @@ namespace Petible_api
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services, IWebHostEnvironment env)
+        public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
             services.AddControllers(options =>
@@ -52,7 +52,6 @@ namespace Petible_api
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Petible API", Version = "v1" });
             });
-            var connectionString = Configuration.GetConnectionString("DefaultConnection");
 
             //services.AddNHibernate(connectionString);
             var sessionFactory = SessionFactory.Init(connectionString);
