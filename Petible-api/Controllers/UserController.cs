@@ -43,7 +43,8 @@ namespace Petible_api.Controllers
         }
 
         //POST: api/User
-        [Authorize]
+        //[Authorize]
+        [AllowAnonymous]
         [HttpPut]
         public async Task<IActionResult> Put([FromBody]User user)
         {
@@ -51,13 +52,12 @@ namespace Petible_api.Controllers
             {
                 await userRepository.Save(user);
                 await uow.Commit();
-                return Created("lifelinks.nl/User", user.id);
+                return Created("petible.nl/User", user.id);
             }
             catch
             {
                 return BadRequest();
             }
-
         }
 
         // DELETE: api/ApiWithActions/5
