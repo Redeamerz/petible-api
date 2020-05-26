@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Petible_api.Interfaces;
+using Petible_api.Models;
 
 namespace Petible_api.Controllers
 {
@@ -13,36 +15,56 @@ namespace Petible_api.Controllers
     [ApiController]
     public class ReviewsController : ControllerBase
     {
+        IUnitOfWork uow = null;
+        IReviewRepository reviewRepository = null;
+
+        public ReviewsController(IUnitOfWork uow, IReviewRepository reviewRepository)
+        {
+            this.uow = uow;
+            this.reviewRepository = reviewRepository;
+        }
+
         // GET: api/Reviews
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<IActionResult> GetAsync()
         {
-            return new string[] { "value1", "value2" };
+            return Ok(await reviewRepository.ListAll());
         }
 
         // GET: api/Reviews/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<IActionResult> Get(string id)
         {
-            return "value";
-        }
-
-        // POST: api/Reviews
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
+            Reviews reviews = await reviewRepository.FindById(id);
+            if (reviews == null) return BadRequest();
+            else return Ok(reviews);
         }
 
         // PUT: api/Reviews/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        public async Task<IActionResult> Post([FromBody] Reviews reviews)
         {
+            try
+            {
+                await reviewRepository.Save(reviews);
+                await uow.Commit();
+                return Created("petible.nl", reviews.id);
+            }
+            catch
+            {
+                return BadRequest();
+            }
+
+
         }
 
         // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete]
+        public async Task<IActionResult> Delete([FromBody] Reviews reviews)
         {
+            await reviewRepository.Remove(reviews);
+            await uow.Commit();
+            return NoContent();
         }
     }
 }
