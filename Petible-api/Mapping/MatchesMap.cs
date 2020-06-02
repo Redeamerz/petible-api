@@ -14,6 +14,7 @@ namespace Petible_api.Mapping
             Table("matches");
             Id(x => x.id).Column("id");
             Map(x => x.pet_id).Column("pet_id");
+            Map(x => x.user_id).Column("user_id");
             Map(x => x.unmatched).Column("unmatched");
         }
     }

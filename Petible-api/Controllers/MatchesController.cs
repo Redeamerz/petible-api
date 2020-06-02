@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Petible_api.Interfaces;
+using Petible_api.Models;
+using Petible_api.Repository;
 
 namespace Petible_api.Controllers
 {
@@ -11,36 +15,64 @@ namespace Petible_api.Controllers
     [ApiController]
     public class MatchesController : ControllerBase
     {
+        IMatchesRepository matchesRepository;
+        IUnitOfWork uow;
+
+        public MatchesController(IMatchesRepository matchesRepository, IUnitOfWork uow)
+        {
+            this.matchesRepository = matchesRepository;
+            this.uow = uow;
+        }
+
         // GET: api/Matches
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<IActionResult> Get()
         {
-            return new string[] { "value1", "value2" };
+            return Ok(await matchesRepository.ListAll());
         }
 
         // GET: api/Matches/5
+        //TODO authenticate
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<IActionResult> Get(string id)
         {
-            return "value";
+            Matches matches = await matchesRepository.FindById(id);
+            if (matches == null) return BadRequest();
+            else return Ok(matches);
         }
 
         // POST: api/Matches
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<IActionResult> PostsAsync([FromBody] Matches matches)
         {
-        }
+            try
+            {
+                await matchesRepository.Save(matches);
+                await uow.Commit();
+                return Created("petible.nl/matches", matches.id);
+            }
+            catch
+            {
+                return BadRequest();
+            }
 
-        // PUT: api/Matches/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            throw new NotImplementedException("Autorisatie moet nog gefixt worden");
+            try
+            {
+                await userRepository.Remove(user);
+                await uow.Commit();
+                return NoContent();
+            }
+            catch
+            {
+                return BadRequest();
+            }
         }
     }
 }
