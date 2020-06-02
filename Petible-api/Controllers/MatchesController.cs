@@ -57,22 +57,5 @@ namespace Petible_api.Controllers
             }
 
         }
-
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-            throw new NotImplementedException("Autorisatie moet nog gefixt worden");
-            try
-            {
-                await userRepository.Remove(user);
-                await uow.Commit();
-                return NoContent();
-            }
-            catch
-            {
-                return BadRequest();
-            }
-        }
     }
 }
