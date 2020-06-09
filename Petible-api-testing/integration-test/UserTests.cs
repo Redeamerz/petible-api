@@ -1,52 +1,41 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
+using Petible_api;
+using Petible_api.Models;
+using Petible_api_testing.mock_models;
+using Petible_api_testing.setup_logic;
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Newtonsoft.Json;
-using Petible_api;
-using Petible_api.Controllers;
-using Petible_api.Models;
-using Petible_api.Repository;
-using Petible_api_testing.mock_models;
-using Petible_api_testing.setup_logic;
 
 namespace Petible_api_testing.integration_test
 {
     [TestClass]
-    public class UserInfoTests
+    public class UserTests
     {
-        private static HttpClient client;
-        static LoginInfo info;
-        static UserInfo userinfo = new UserInfo();
-        static UserInfo empty = new UserInfo();
-        
-        [AssemblyInitialize]
-        public static void prep(TestContext context)
+        private HttpClient client;
+        LoginInfo info;
+        User user = new User();
+        User empty = new User();
+
+        [TestInitialize]
+        public void prep()
         {
             var appFactory = new WebApplicationFactory<Startup>();
             client = appFactory.CreateClient();
             client.BaseAddress = new Uri("https://127.0.0.1:5001/");
-            
-                SetBearer();
-            
-            
+            SetBearer();
 
-            userinfo.id = "YR8gmUIMOVXz1R4R1a8OZdmjxtJ2";
-            userinfo.username = "test";
-            userinfo.city = "somewhere";
-            userinfo.latitude = (decimal)0.22;
-            userinfo.latitude = (decimal)0.2;
-            userinfo.children = true;
-            userinfo.description = "testzooi";
-            userinfo.otherPets = true;
-            userinfo.timeFree = 12;
+            user.id = "integrationtesting";
+            user.email = "integrationtestcreation@outlook.com";
+            user.role = 2;
         }
 
-        public static async void SetBearer()
+        private async void SetBearer()
         {
             SetAuthHeader auth = new SetAuthHeader();
             info = await auth.GetJwtAsync();
@@ -54,11 +43,11 @@ namespace Petible_api_testing.integration_test
         }
 
         [TestMethod]
-        public async Task GetAllUserInfoOk()
+        public async Task GetAllUserOk()
         {
             //Arrange
-            
-            var request = "api/v1/UserInfo";
+
+            var request = "api/v1/User";
 
             //Act
             var response = await client.GetAsync(request);
@@ -72,7 +61,7 @@ namespace Petible_api_testing.integration_test
         public async Task GetUserInfoOk()
         {
             //Arrange
-            var request = "api/v1/UserInfo/" + info.localId;
+            var request = "api/v1/User/" + info.localId;
             //Act
             var response = await client.GetAsync(request);
 
@@ -85,7 +74,7 @@ namespace Petible_api_testing.integration_test
         public async Task GetUserInfoBadRequest()
         {
             //Arrange
-            var request = "api/v1/UserInfo/" + info.localId + "2";
+            var request = "api/v1/User/" + info.localId + "2";
             //Act
             var response = await client.GetAsync(request);
 
@@ -99,9 +88,9 @@ namespace Petible_api_testing.integration_test
 
             HttpRequestMessage request = new HttpRequestMessage
             {
-                Content = new StringContent(JsonConvert.SerializeObject(userinfo), Encoding.UTF8, "application/json"),
+                Content = new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json"),
                 Method = HttpMethod.Put,
-                RequestUri = new Uri("https://127.0.0.1:5001/api/v1/userinfo")
+                RequestUri = new Uri("https://127.0.0.1:5001/api/v1/user")
             };
             var response = await client.SendAsync(request);
 
@@ -116,7 +105,7 @@ namespace Petible_api_testing.integration_test
             {
                 Content = new StringContent(JsonConvert.SerializeObject(empty), Encoding.UTF8, "application/json"),
                 Method = HttpMethod.Put,
-                RequestUri = new Uri("https://127.0.0.1:5001/api/v1/userinfo")
+                RequestUri = new Uri("https://127.0.0.1:5001/api/v1/user")
             };
             var response = await client.SendAsync(request);
 
@@ -129,9 +118,9 @@ namespace Petible_api_testing.integration_test
 
             HttpRequestMessage request = new HttpRequestMessage
             {
-                Content = new StringContent(JsonConvert.SerializeObject(userinfo), Encoding.UTF8, "application/json"),
+                Content = new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json"),
                 Method = HttpMethod.Delete,
-                RequestUri = new Uri("https://127.0.0.1:5001/api/v1/userinfo")
+                RequestUri = new Uri("https://127.0.0.1:5001/api/v1/user")
             };
 
             var response = await client.SendAsync(request);
@@ -147,7 +136,7 @@ namespace Petible_api_testing.integration_test
             {
                 Content = new StringContent("1", Encoding.UTF8, "application/json"),
                 Method = HttpMethod.Delete,
-                RequestUri = new Uri("https://127.0.0.1:5001/api/v1/userinfo")
+                RequestUri = new Uri("https://127.0.0.1:5001/api/v1/user")
             };
 
             var response = await client.SendAsync(request);

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Petible_api.Models
 {
-    public class Reviews
+    public class Review
     {
         public virtual string id { get; set; }
         public virtual string user_id_source { get; set; }
