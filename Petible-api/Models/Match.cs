@@ -11,6 +11,5 @@ namespace Petible_api.Models
         public virtual string pet_id { get; set; }
         public virtual string user_id { get; set; }
         public virtual int status { get; set; }
-        public virtual string shelterEmail { get; set; }
     }
 }

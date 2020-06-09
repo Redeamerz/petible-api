@@ -34,8 +34,6 @@ namespace Petible_api_testing.integration_test
             match.pet_id = "integrationtest1";
             match.user_id = "integrationtesting";
             match.status = 3;
-            match.shelterEmail = "shelter@test.nl";
-            
         }
 
         private static async void SetBearer()
