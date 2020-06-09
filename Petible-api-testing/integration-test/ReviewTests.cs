@@ -17,13 +17,13 @@ namespace Petible_api_testing.integration_test
     [TestClass]
     public class ReviewTests
     {
-        private HttpClient client;
-        LoginInfo info;
-        Review review = new Review();
-        Review empty = new Review();
+        private static HttpClient client;
+        static LoginInfo info;
+        static Review review = new Review();
+        static Review empty = new Review();
 
-        [TestInitialize]
-        public void prep()
+        [ClassInitialize]
+        public static void prep(TestContext context)
         {
             var appFactory = new WebApplicationFactory<Startup>();
             client = appFactory.CreateClient();
@@ -38,7 +38,7 @@ namespace Petible_api_testing.integration_test
             review.user_id_target = "YR8gmUIMOVXz1R4R1a8OZdmjxtJ2";
         }
 
-        private async void SetBearer()
+        private static async void SetBearer()
         {
             SetAuthHeader auth = new SetAuthHeader();
             info = await auth.GetJwtAsync();

@@ -24,7 +24,7 @@ namespace Petible_api_testing.integration_test
         static UserInfo userinfo = new UserInfo();
         static UserInfo empty = new UserInfo();
         
-        [AssemblyInitialize]
+        [ClassInitialize]
         public static void prep(TestContext context)
         {
             var appFactory = new WebApplicationFactory<Startup>();
@@ -32,8 +32,6 @@ namespace Petible_api_testing.integration_test
             client.BaseAddress = new Uri("https://127.0.0.1:5001/");
             
                 SetBearer();
-            
-            
 
             userinfo.id = "YR8gmUIMOVXz1R4R1a8OZdmjxtJ2";
             userinfo.username = "test";
