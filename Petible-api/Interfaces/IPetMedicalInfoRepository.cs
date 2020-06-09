@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Petible_api.Interfaces
 {
-    public interface IPetMedicalInfo : IRepository<PetMedicalInfo, string>
+    public interface IPetMedicalInfoRepository : IRepository<PetMedicalInfo, string>
     {
     }
 }

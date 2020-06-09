@@ -9,6 +9,8 @@ namespace Petible_api.Models
     {
         public virtual string id { get; set; }
         public virtual bool chipped { get; set; }
+        public virtual bool sterilized { get; set; }
         public virtual bool vaccinesUptodate { get; set; }
+        public virtual bool medicalComplications { get; set; }
     }
 }
