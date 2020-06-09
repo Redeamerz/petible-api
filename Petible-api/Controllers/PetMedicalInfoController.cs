@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Petible_api.Interfaces;
+using Petible_api.Models;
 
 namespace Petible_api.Controllers
 {
@@ -13,36 +15,51 @@ namespace Petible_api.Controllers
     [ApiController]
     public class PetMedicalInfoController : ControllerBase
     {
-        // GET: api/PetMedicalInfo
+        IUnitOfWork uow = null;
+        IPetMedicalInfoRepository petMedicalInfoRepository = null;
+
+        public PetMedicalInfoController(IUnitOfWork uow, IPetMedicalInfoRepository petMedicalInfoRepository)
+        {
+            this.uow = uow;
+            this.petMedicalInfoRepository = petMedicalInfoRepository;
+        }
+
+
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<IActionResult> GetAsync()
         {
-            return new string[] { "value1", "value2" };
+            return Ok(await petMedicalInfoRepository.ListAll());
         }
 
-        // GET: api/PetMedicalInfo/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(string id)
         {
-            return "value";
+            PetMedicalInfo petMedicalInfo = await petMedicalInfoRepository.FindById(id);
+            if (petMedicalInfo == null) return BadRequest();
+            else return Ok(petMedicalInfo);
         }
 
-        // POST: api/PetMedicalInfo
-        [HttpPost]
-        public void Post([FromBody] string value)
+        [HttpPut]
+        public async Task<IActionResult> Post([FromBody] PetMedicalInfo petMedicalInfo)
         {
+            try
+            {
+                await petMedicalInfoRepository.Save(petMedicalInfo);
+                await uow.Commit();
+                return Created("petible.nl", petMedicalInfo);
+            }
+            catch
+            {
+                return BadRequest();
+            }
         }
 
-        // PUT: api/PetMedicalInfo/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpDelete]
+        public async Task<IActionResult> Delete([FromBody] PetMedicalInfo petMedicalInfo)
         {
-        }
-
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            await petMedicalInfoRepository.Remove(petMedicalInfo);
+            await uow.Commit();
+            return NoContent();
         }
     }
 }
