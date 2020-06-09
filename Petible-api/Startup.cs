@@ -70,7 +70,7 @@ namespace Petible_api
                     };
                 });
             //Setup Unit of Work 
-            var connectionString = Configuration.GetConnectionString("LocalhostSid");
+            var connectionString = Configuration.GetConnectionString("DefaultConnection");
             var sessionFactory = SessionFactory.Init(connectionString);
             services.AddSingleton(factory => sessionFactory);
             services.AddScoped<IUnitOfWork, NHUnitOfWork>();
