@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Petible_api.Repository
 {
-    public class ReviewsController : Repository<Reviews, string>, IReviewsRepository
+    public class ReviewRepository : Repository<Review, string>, IReviewRepository
     {
-        public ReviewsRepository(IUnitOfWork uow) : base(uow)
+        public ReviewRepository(IUnitOfWork uow) : base(uow)
         {
 
         }
