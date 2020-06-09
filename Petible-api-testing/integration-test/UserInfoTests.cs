@@ -19,11 +19,11 @@ namespace Petible_api_testing.integration_test
     [TestClass]
     public class UserInfoTests
     {
-        private HttpClient client;
-        LoginInfo info;
+        private static HttpClient client;
+        private static LoginInfo info;
         
-        [TestInitialize]
-        public void prep()
+        [AssemblyInitialize]
+        public static void prep(TestContext context)
         {
             var appFactory = new WebApplicationFactory<Startup>();
             client = appFactory.CreateClient();
@@ -31,7 +31,7 @@ namespace Petible_api_testing.integration_test
             SetBearer();
         }
 
-        private async void SetBearer()
+        public static async void SetBearer()
         {
             SetAuthHeader auth = new SetAuthHeader();
             info = await auth.GetJwtAsync();
