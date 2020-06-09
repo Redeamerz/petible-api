@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Petible_api.Mapping
 {
-    public class ReviewsMap : ClassMap<Reviews>
+    public class ReviewsMap : ClassMap<Review>
     {
         public ReviewsMap()
         {
