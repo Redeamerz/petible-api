@@ -20,11 +20,9 @@ namespace Petible_api_testing.integration_test
     public class UserInfoTests
     {
         private static HttpClient client;
-        private static LoginInfo info;
-        private HttpClient client;
-        LoginInfo info;
-        UserInfo userinfo = new UserInfo();
-        UserInfo empty = new UserInfo();
+        static LoginInfo info;
+        static UserInfo userinfo = new UserInfo();
+        static UserInfo empty = new UserInfo();
         
         [ClassInitialize]
         public static void prep(TestContext context)
