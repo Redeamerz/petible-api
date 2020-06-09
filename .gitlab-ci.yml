@@ -1,5 +1,6 @@
 stages:
     - dotnet-build
+    - dotnet-test
     - docker-build-push
 
 dotnet-build:
@@ -9,6 +10,15 @@ dotnet-build:
     script:
         - "dotnet build ./Petible-api/Petible-api.sln"
     stage: dotnet-build
+    
+dotnet-test:
+    image: mcr.microsoft.com/dotnet/core/sdk:3.1
+    stage: dotnet-test
+    before_script:
+        - "dotnet restore ./Petible-api"
+    script:
+        - "dotnet test"
+    
 
 docker-build-push:
     image: docker:latest
