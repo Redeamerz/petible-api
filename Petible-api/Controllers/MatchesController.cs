@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Petible_api.Interfaces;
+using Petible_api.Models;
 
 namespace Petible_api.Controllers
 {
@@ -13,36 +15,50 @@ namespace Petible_api.Controllers
     [ApiController]
     public class MatchesController : ControllerBase
     {
-        // GET: api/Matches
+        IUnitOfWork uow;
+        IMatchesRepository matchesRepository;
+
+        public MatchesController(IUnitOfWork uow, IMatchesRepository matchesRepository)
+		{
+            this.uow = uow;
+            this.matchesRepository = matchesRepository;
+        }
+
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<IActionResult> GetAsync()
         {
-            return new string[] { "value1", "value2" };
+            return Ok(await matchesRepository.ListAll());
         }
 
-        // GET: api/Matches/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<IActionResult> Get(string id)
         {
-            return "value";
+            Matches match = await matchesRepository.FindById(id);
+            if (match == null) return BadRequest();
+            else return Ok(match);
         }
 
-        // POST: api/Matches
-        [HttpPost]
-        public void Post([FromBody] string value)
+        [HttpPut]
+        public async Task<IActionResult> Post([FromBody] Matches match)
         {
+            try
+            {
+                await matchesRepository.Save(match);
+                await uow.Commit();
+                return Created("petible.nl", match);
+            }
+            catch (Exception e)
+            {
+                return BadRequest();
+            }
         }
 
-        // PUT: api/Matches/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpDelete]
+        public async Task<IActionResult> Delete([FromBody] Matches match)
         {
-        }
-
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            await matchesRepository.Remove(match);
+            await uow.Commit();
+            return NoContent();
         }
     }
 }
