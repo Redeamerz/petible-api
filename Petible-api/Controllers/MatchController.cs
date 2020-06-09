@@ -13,12 +13,12 @@ namespace Petible_api.Controllers
     [Authorize]
     [Route("api/v1/[controller]")]
     [ApiController]
-    public class MatchesController : ControllerBase
+    public class MatchController : ControllerBase
     {
         IUnitOfWork uow;
-        IMatchesRepository matchesRepository;
+        IMatchRepository matchesRepository;
 
-        public MatchesController(IUnitOfWork uow, IMatchesRepository matchesRepository)
+        public MatchController(IUnitOfWork uow, IMatchRepository matchesRepository)
 		{
             this.uow = uow;
             this.matchesRepository = matchesRepository;
@@ -33,13 +33,13 @@ namespace Petible_api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(string id)
         {
-            Matches match = await matchesRepository.FindById(id);
+            Match match = await matchesRepository.FindById(id);
             if (match == null) return BadRequest();
             else return Ok(match);
         }
 
         [HttpPut]
-        public async Task<IActionResult> Post([FromBody] Matches match)
+        public async Task<IActionResult> Post([FromBody] Match match)
         {
             try
             {
@@ -47,14 +47,14 @@ namespace Petible_api.Controllers
                 await uow.Commit();
                 return Created("petible.nl", match);
             }
-            catch (Exception e)
+            catch
             {
                 return BadRequest();
             }
         }
 
         [HttpDelete]
-        public async Task<IActionResult> Delete([FromBody] Matches match)
+        public async Task<IActionResult> Delete([FromBody] Match match)
         {
             await matchesRepository.Remove(match);
             await uow.Commit();
