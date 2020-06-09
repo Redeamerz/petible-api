@@ -52,6 +52,18 @@ namespace Petible_api_testing.integration_test
         }
 
         [TestMethod]
+        public async Task GetAllUserInfoOk()
+        {
+            //Arrange
+            var request = "api/v1/UserInfo";
+            //Act
+            var response = await client.GetAsync(request);
+
+            //Assert
+            Assert.AreEqual(System.Net.HttpStatusCode.OK, response.StatusCode);
+        }
+
+        [TestMethod]
         public async Task GetUserInfoOk()
         {
             //Arrange
@@ -60,7 +72,7 @@ namespace Petible_api_testing.integration_test
             var response = await client.GetAsync(request);
 
             //Assert
-            Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
+            Assert.AreEqual(System.Net.HttpStatusCode.OK, response.StatusCode);
         }
 
         [TestMethod]
@@ -72,7 +84,7 @@ namespace Petible_api_testing.integration_test
             var response = await client.GetAsync(request);
 
             //Assert
-            Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.BadRequest);
+            Assert.AreEqual(System.Net.HttpStatusCode.BadRequest, response.StatusCode);
         }
 
         [TestMethod]
