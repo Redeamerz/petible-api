@@ -19,13 +19,15 @@ namespace Petible_api_testing.integration_test
     [TestClass]
     public class UserInfoTests
     {
+        private static HttpClient client;
+        private static LoginInfo info;
         private HttpClient client;
         LoginInfo info;
         UserInfo userinfo = new UserInfo();
         UserInfo empty = new UserInfo();
         
-        [TestInitialize]
-        public void prep()
+        [AssemblyInitialize]
+        public static void prep(TestContext context)
         {
             var appFactory = new WebApplicationFactory<Startup>();
             client = appFactory.CreateClient();
@@ -46,26 +48,11 @@ namespace Petible_api_testing.integration_test
             userinfo.timeFree = 12;
         }
 
-        private async void SetBearer()
+        public static async void SetBearer()
         {
             SetAuthHeader auth = new SetAuthHeader();
             info = await auth.GetJwtAsync();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", info.idToken);
-        }
-
-        [TestMethod]
-        public async Task GetAllUserInfoOk()
-        {
-            //Arrange
-            
-            var request = "api/v1/UserInfo";
-
-            //Act
-            var response = await client.GetAsync(request);
-
-            //Assert
-            response.EnsureSuccessStatusCode();
-            Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
         }
 
         [TestMethod]
@@ -77,7 +64,6 @@ namespace Petible_api_testing.integration_test
             var response = await client.GetAsync(request);
 
             //Assert
-            response.EnsureSuccessStatusCode();
             Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
         }
 
