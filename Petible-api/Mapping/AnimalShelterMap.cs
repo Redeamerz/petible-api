@@ -14,7 +14,6 @@ namespace Petible_api.Mapping
             Table("animalshelter");
             Id(x => x.id).Column("id");
             Map(x => x.name).Column("name");
-            Map(x => x.website).Column("website");
             Map(x => x.postalCode).Column("postalCode");
             Map(x => x.city).Column("city");
             Map(x => x.latitude).Column("latitude");
@@ -27,6 +26,7 @@ namespace Petible_api.Mapping
             Map(x => x.twitter).Column("twitter");
             Map(x => x.instagram).Column("instagram");
             Map(x => x.linkedin).Column("linkedin");
+            Map(x => x.website).Column("website");
         }
     }
 }
