@@ -11,11 +11,15 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
 using Petible_api.NHibernate;
 using Petible_api.Interfaces;
 using Petible_api.Repository;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+
 using Microsoft.Net.Http.Headers;
 using Google.Protobuf.WellKnownTypes;
 
@@ -31,7 +35,7 @@ namespace Petible_api
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services, IWebHostEnvironment env)
+        public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
             services.AddControllers(options =>
@@ -48,9 +52,24 @@ namespace Petible_api
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Petible API", Version = "v1" });
             });
-            var connectionString = Configuration.GetConnectionString("DefaultConnection");
 
+            //services.AddNHibernate(connectionString);
+            services
+                .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.Authority = "https://securetoken.google.com/petible-4ec74";
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidIssuer = "https://securetoken.google.com/petible-4ec74",
+                        ValidateAudience = true,
+                        ValidAudience = "petible-4ec74",
+                        ValidateLifetime = true
+                    };
+                });
             //Setup Unit of Work 
+            var connectionString = Configuration.GetConnectionString("DefaultConnection");
             var sessionFactory = SessionFactory.Init(connectionString);
             services.AddSingleton(factory => sessionFactory);
             services.AddScoped<IUnitOfWork, NHUnitOfWork>();
@@ -58,6 +77,7 @@ namespace Petible_api
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IAnimalShelterRepository, AnimalShelterRepository>();
             services.AddControllersWithViews();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -68,12 +88,16 @@ namespace Petible_api
                 app.UseDeveloperExceptionPage();
             }
 
+           
+
             app.UseCors(
                 options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

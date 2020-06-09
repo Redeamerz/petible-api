@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using Petible_api.Models;
 
 namespace Petible_api.Controllers
 {
+    [Authorize]
     [Route("api/v1/[controller]")]
     [ApiController]
     public class AnimalShelterController : ControllerBase
@@ -23,6 +25,7 @@ namespace Petible_api.Controllers
             this.uow = uow;
         }
         // GET: api/AnimalShelter
+        
         [HttpGet]
         public async Task<IActionResult> Get()
         {

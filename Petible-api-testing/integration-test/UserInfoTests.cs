@@ -25,9 +25,9 @@ namespace Petible_api_testing.integration_test
         [TestInitialize]
         public void prep()
         {
-            //var appFactory = new WebApplicationFactory<Startup>();
-            //client = appFactory.CreateClient();
-            client = new HttpClient();
+            var appFactory = new WebApplicationFactory<Startup>();
+            client = appFactory.CreateClient();
+            client.BaseAddress = new Uri("https://127.0.0.1:5001/");
             SetBearer();
         }
 
@@ -42,37 +42,40 @@ namespace Petible_api_testing.integration_test
         public async Task GetAllUserInfoOk()
         {
             //Arrange
-            var request = "http://localhost:5000/api/v1/UserInfo";
+            
+            var request = "api/v1/UserInfo";
 
             //Act
             var response = await client.GetAsync(request);
 
             //Assert
             response.EnsureSuccessStatusCode();
+            Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
         }
 
         [TestMethod]
         public async Task GetUserInfoOk()
         {
             //Arrange
-            var request = "http://localhost:5000/api/v1/UserInfo/" + info.localId;
+            var request = "api/v1/UserInfo/" + info.localId;
             //Act
             var response = await client.GetAsync(request);
 
             //Assert
             response.EnsureSuccessStatusCode();
+            Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
         }
 
         [TestMethod]
         public async Task GetUserInfoBad()
         {
             //Arrange
-            var request = "http://localhost:5000/api/v1/UserInfo/" + info.localId + "2";
+            var request = "api/v1/UserInfo/" + info.localId + "2";
             //Act
             var response = await client.GetAsync(request);
 
             //Assert
-            
+            Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.BadRequest);
         }
 
         
