@@ -8,5 +8,7 @@ namespace Petible_api.Interfaces
 {
     public interface IMatchesRepository : IRepository<Matches, string>
     {
+        Task<Matches> GetMatchInfo(string id);
+
     }
 }

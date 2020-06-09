@@ -7,6 +7,7 @@ using Petible_api.Mapping;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Petible_api.NHibernate
@@ -23,7 +24,8 @@ namespace Petible_api.NHibernate
                     .ConnectionString(connectionString))
                     .Mappings(m => m.FluentMappings
                     .AddFromAssemblyOf<UserMap>()
-                    .AddFromAssemblyOf<UserInfoMap>())
+                    .AddFromAssemblyOf<UserInfoMap>()
+                    .AddFromAssemblyOf<MatchesMap>())
                     .ExposeConfiguration(cfg => new SchemaExport(cfg).Create(false, false))
                     .BuildSessionFactory();
         }
