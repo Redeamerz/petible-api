@@ -17,13 +17,13 @@ namespace Petible_api_testing.integration_test
     [TestClass]
     public class UserTests
     {
-        private HttpClient client;
-        LoginInfo info;
-        User user = new User();
-        User empty = new User();
+        private static HttpClient client;
+        static LoginInfo info;
+        static User user = new User();
+        static User empty = new User();
 
-        [TestInitialize]
-        public void prep()
+        [ClassInitialize]
+        public static void prep(TestContext context)
         {
             var appFactory = new WebApplicationFactory<Startup>();
             client = appFactory.CreateClient();
@@ -35,7 +35,7 @@ namespace Petible_api_testing.integration_test
             user.role = 2;
         }
 
-        private async void SetBearer()
+        private static async void SetBearer()
         {
             SetAuthHeader auth = new SetAuthHeader();
             info = await auth.GetJwtAsync();
