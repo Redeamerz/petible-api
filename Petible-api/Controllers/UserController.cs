@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Petible_api.Interfaces;
@@ -9,6 +10,7 @@ using Petible_api.Models;
 
 namespace Petible_api.Controllers
 {
+    
     [Route("api/v1/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
@@ -23,6 +25,7 @@ namespace Petible_api.Controllers
         }
 
         // GET: api/UserInfo
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetAsync()
         {
@@ -30,6 +33,7 @@ namespace Petible_api.Controllers
         }
 
         //GET: api/UserInfo/GUID
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(string id)
         {
@@ -39,23 +43,25 @@ namespace Petible_api.Controllers
         }
 
         //POST: api/User
-       [HttpPut]
+        //[Authorize]
+        [AllowAnonymous]
+        [HttpPut]
         public async Task<IActionResult> Put([FromBody]User user)
         {
             try
             {
                 await userRepository.Save(user);
                 await uow.Commit();
-                return Created("lifelinks.nl/User", user.id);
+                return Created("petible.nl/User", user.id);
             }
             catch
             {
                 return BadRequest();
             }
-
         }
 
         // DELETE: api/ApiWithActions/5
+        [Authorize]
         [HttpDelete]
         public async Task<IActionResult> Delete([FromBody]User user)
         {

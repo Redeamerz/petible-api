@@ -17,11 +17,10 @@ using Microsoft.EntityFrameworkCore;
 using Petible_api.NHibernate;
 using Petible_api.Interfaces;
 using Petible_api.Repository;
-
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using AspNetCore.Firebase.Authentication;
 using Microsoft.Net.Http.Headers;
-
 using Google.Protobuf.WellKnownTypes;
 
 namespace Petible_api
@@ -54,9 +53,8 @@ namespace Petible_api
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Petible API", Version = "v1" });
             });
 
-            var connectionString = Configuration.GetConnectionString("DefaultConnection");
-            
-            var sessionFactory = SessionFactory.Init(connectionString);
+            //services.AddNHibernate(connectionString);
+
             services
                 .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
@@ -71,7 +69,9 @@ namespace Petible_api
                         ValidateLifetime = true
                     };
                 });
-           
+            //Setup Unit of Work 
+            var connectionString = Configuration.GetConnectionString("LocalhostSid");
+            var sessionFactory = SessionFactory.Init(connectionString);
             services.AddSingleton(factory => sessionFactory);
             services.AddScoped<IUnitOfWork, NHUnitOfWork>();
             services.AddTransient<IUserInfoRepository, UserInfoRepository>();
@@ -89,8 +89,8 @@ namespace Petible_api
                 app.UseDeveloperExceptionPage();
             }
 
-           
 
+            
             app.UseCors(
                 options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 

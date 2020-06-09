@@ -8,6 +8,7 @@ namespace Petible_api_testing
     {
         public string email;
         public string password;
+        public int role;
         public bool returnSecureToken;
     }
 }
