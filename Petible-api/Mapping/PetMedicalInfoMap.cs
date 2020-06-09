@@ -14,7 +14,7 @@ namespace Petible_api.Mapping
             Table("petmedicalinfo");
             Id(x => x.id).Column("id");
             Map(x => x.chipped).Column("chipped");
-            Map(x => x.sterilized).Column("steralized");
+            Map(x => x.sterilized).Column("sterilized");
             Map(x => x.vaccinesUptodate).Column("vaccinesuptodate");
             Map(x => x.medicalComplications).Column("medicalcomplications");
         }
