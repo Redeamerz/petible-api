@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Petible_api.Models
 {
-    public class Matches
+    public class Match
     {
         public virtual string id { get; set; }
         public virtual string pet_id { get; set; }

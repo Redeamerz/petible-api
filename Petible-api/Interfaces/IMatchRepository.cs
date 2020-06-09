@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Petible_api.Interfaces
 {
-    public interface IMatchesRepository : IRepository<Matches, string>
+    public interface IMatchRepository : IRepository<Match, string>
     {
         Task<Matches> GetMatchInfo(string id);
 

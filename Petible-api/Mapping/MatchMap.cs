@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Petible_api.Mapping
 {
-    public class MatchesMap : ClassMap<Matches>
+    public class MatchesMap : ClassMap<Match>
     {
         public MatchesMap()
         {
