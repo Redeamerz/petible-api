@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Petible_api.Mapping
 {
-    public class ReviewsMap : ClassMap<Review>
+    public class ReviewMap : ClassMap<Review>
     {
-        public ReviewsMap()
+        public ReviewMap()
         {
             Table("reviews");
             Id(x => x.id).Column("id");

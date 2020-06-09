@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Petible_api.Interfaces
 {
-    public interface IReviewsRepository : IRepository<Reviews, string>
+    public interface IReviewRepository : IRepository<Review, string>
     {
     }
 }

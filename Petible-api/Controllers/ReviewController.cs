@@ -47,7 +47,7 @@ namespace Petible_api.Controllers
                 await uow.Commit();
                 return Created("petible.nl", review);
             }
-            catch
+            catch(Exception e)
             {
                 return BadRequest();
             }
