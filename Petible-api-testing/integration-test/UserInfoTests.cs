@@ -19,10 +19,10 @@ namespace Petible_api_testing.integration_test
     [TestClass]
     public class UserInfoTests
     {
-        private HttpClient client;
-        LoginInfo info;
-        UserInfo userinfo = new UserInfo();
-        UserInfo empty = new UserInfo();
+        private static HttpClient client;
+        static LoginInfo info;
+        static UserInfo userinfo = new UserInfo();
+        static UserInfo empty = new UserInfo();
         
         [TestInitialize]
         public void prep()
@@ -57,15 +57,12 @@ namespace Petible_api_testing.integration_test
         public async Task GetAllUserInfoOk()
         {
             //Arrange
-            
             var request = "api/v1/UserInfo";
-
             //Act
             var response = await client.GetAsync(request);
 
             //Assert
-            response.EnsureSuccessStatusCode();
-            Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
+            Assert.AreEqual(System.Net.HttpStatusCode.OK, response.StatusCode);
         }
 
         [TestMethod]
@@ -77,8 +74,7 @@ namespace Petible_api_testing.integration_test
             var response = await client.GetAsync(request);
 
             //Assert
-            response.EnsureSuccessStatusCode();
-            Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
+            Assert.AreEqual(System.Net.HttpStatusCode.OK, response.StatusCode);
         }
 
         [TestMethod]
@@ -90,7 +86,7 @@ namespace Petible_api_testing.integration_test
             var response = await client.GetAsync(request);
 
             //Assert
-            Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.BadRequest);
+            Assert.AreEqual(System.Net.HttpStatusCode.BadRequest, response.StatusCode);
         }
 
         [TestMethod]
