@@ -16,7 +16,7 @@ namespace Petible_api_testing.setup_logic
         {
             var info = new MockLoginInfo
             {
-                email = "integrationtest@outlook.com",
+                email = "hayate12345@outlook.com",
                 password = "test123",
                 role = 2,
                 returnSecureToken = true
