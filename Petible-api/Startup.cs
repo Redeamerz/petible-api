@@ -19,7 +19,7 @@ using Petible_api.Interfaces;
 using Petible_api.Repository;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-
+using AspNetCore.Firebase.Authentication;
 using Microsoft.Net.Http.Headers;
 using Google.Protobuf.WellKnownTypes;
 
@@ -54,6 +54,7 @@ namespace Petible_api
             });
 
             //services.AddNHibernate(connectionString);
+
             services
                 .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
@@ -88,8 +89,8 @@ namespace Petible_api
                 app.UseDeveloperExceptionPage();
             }
 
-           
 
+            
             app.UseCors(
                 options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 

@@ -14,7 +14,7 @@ namespace Petible_api.Mapping
             Table("animalshelter");
             Id(x => x.id).Column("id");
             Map(x => x.name).Column("name");
-            Map(x => x.website).Column("webite");
+            Map(x => x.website).Column("website");
             Map(x => x.postalCode).Column("postalCode");
             Map(x => x.city).Column("city");
             Map(x => x.latitude).Column("latitude");
