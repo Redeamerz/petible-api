@@ -17,7 +17,7 @@ dotnet-test:
     before_script:
         - "dotnet restore ./Petible-api"
     script:
-        - "dotnet test"
+        - "dotnet test ./Petible-api-testing"
     
 
 docker-build-push:
