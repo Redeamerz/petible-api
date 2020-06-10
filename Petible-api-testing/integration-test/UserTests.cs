@@ -30,7 +30,7 @@ namespace Petible_api_testing.integration_test
             client.BaseAddress = new Uri("https://127.0.0.1:5001/");
             SetBearer();
 
-            user.id = "integrationtesting";
+            user.id = "integrationtesting9999";
             user.email = "integrationtestcreation@outlook.com";
             user.role = 2;
         }
