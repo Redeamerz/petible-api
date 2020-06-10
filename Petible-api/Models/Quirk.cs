@@ -8,7 +8,7 @@ namespace Petible_api.Models
     public class Quirk
     {
         public virtual string id { get; set; }
-        public virtual string personality { get; set; }
+        public virtual string name { get; set; }
         public virtual string description { get; set; }
     }
 }
