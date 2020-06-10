@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 namespace Petible_api.Controllers
 {
+    [Route("api/v1/[controller]")]
+    [ApiController]
     public class QuirkController : ControllerBase
     {
         IUnitOfWork uow = null;
