@@ -79,6 +79,7 @@ namespace Petible_api
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IPetRepository, PetRepository>();
             services.AddTransient<IMatchRepository, MatchRepository>();
+            services.AddTransient<IQuirkRepository, QuirkRepository>();
             services.AddTransient<IPetMedicalInfoRepository, PetMedicalInfoRepository>();
             services.AddTransient<IAnimalShelterRepository, AnimalShelterRepository>();
             services.AddTransient<IReviewRepository, ReviewRepository>();
