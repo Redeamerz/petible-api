@@ -23,6 +23,7 @@ using AspNetCore.Firebase.Authentication;
 using Microsoft.Net.Http.Headers;
 using Google.Protobuf.WellKnownTypes;
 using System.Text.RegularExpressions;
+using Petible_api.Models;
 
 namespace Petible_api
 {
@@ -83,6 +84,8 @@ namespace Petible_api
             services.AddTransient<IPetMedicalInfoRepository, PetMedicalInfoRepository>();
             services.AddTransient<IAnimalShelterRepository, AnimalShelterRepository>();
             services.AddTransient<IReviewRepository, ReviewRepository>();
+            services.AddTransient<IPetRepository, PetRepository>();
+            //services.AddTransient<IPet_has_personalitytraitsRepository, Pet_has_PersonalityTraitsRepository>();
             services.AddControllersWithViews();
             
         }

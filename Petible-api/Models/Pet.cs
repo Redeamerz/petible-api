@@ -16,5 +16,6 @@ namespace Petible_api.Models
         public virtual string description { get; set; }
         public virtual DateTime inAnimalShelterSince { get; set; }
         public virtual int fees { get; set; }
+        public virtual int[] quirks { get; set; }
     }
 }

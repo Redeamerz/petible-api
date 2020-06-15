@@ -27,6 +27,5 @@ namespace Petible_api.Repository
 			match.animalShelterEmail = (string)result[4];
 			return match;
 		}
-
 	}
 }
