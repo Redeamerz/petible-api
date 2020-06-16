@@ -47,6 +47,14 @@ namespace Petible_api.Controllers
             else return Ok(matches);
         }
 
+        [HttpGet("user/{id}")]
+        public async Task<IActionResult> GetMatchesByUserId(string id)
+        {
+            List<MatchForShelter> matches = await matchesRepository.GetMatchesByUserId(id);
+            if (matches == null) return BadRequest();
+            else return Ok(matches);
+        }
+
         [HttpPut]
         public async Task<IActionResult> Post([FromBody] Match match)
         {

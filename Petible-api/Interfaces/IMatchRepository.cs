@@ -11,5 +11,6 @@ namespace Petible_api.Interfaces
     {
         Task<Match> GetMatchInfo(string id);
         Task<List<MatchForShelter>> GetMatchesByAnimalId(string id);
+        Task<List<MatchForShelter>> GetMatchesByUserId(string id);
     }
 }

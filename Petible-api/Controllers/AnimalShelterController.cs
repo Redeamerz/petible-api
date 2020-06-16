@@ -67,8 +67,9 @@ namespace Petible_api.Controllers
                 await uow.Commit();
                 return NoContent();
             }
-            catch
+            catch(Exception e)
             {
+                string f = e.Message;
                 return BadRequest();
             }
         }
