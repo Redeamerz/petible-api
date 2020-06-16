@@ -8,6 +8,6 @@ namespace Petible_api.Interfaces
 {
 	public interface IPet_has_personalitytraitsRepository : IRepository<Pet_has_PersonalityTraits, string>
 	{
-		Task<Pet_has_PersonalityTraits> ListAllById(string id);
+		Task<List<Pet_has_PersonalityTraits>> ListAllById(string id);
 	}
 }

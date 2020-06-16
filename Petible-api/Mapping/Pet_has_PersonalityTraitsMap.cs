@@ -12,7 +12,8 @@ namespace Petible_api.Mapping
         public Pet_has_PersonalityTraitsMap()
         {
             Table("pet_has_personalitytraits");
-            Id(x => x.pet_id).Column("pet_id");
+            Id(x => x.id).Column("Id");
+            Map(x => x.pet_id).Column("pet_id");
             Map(x => x.personalitytraits_id).Column("personalitytraits_id");
         }
     }
