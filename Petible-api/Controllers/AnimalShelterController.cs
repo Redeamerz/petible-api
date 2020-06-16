@@ -11,7 +11,7 @@ using Petible_api.Models;
 
 namespace Petible_api.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/v1/[controller]")]
     [ApiController]
     public class AnimalShelterController : ControllerBase
