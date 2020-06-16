@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -14,12 +15,12 @@ namespace Petible_api.Controllers
     {
         IPetRepository petRepository;
         IUnitOfWork uow;
-        IPet_has_personalitytraitsRepository pet_Has_Personalitytraits;
+        IPet_has_personalitytraitsRepository pet_Has_PersonalitytraitsRepository;
 
-        public PetController(IPetRepository petRepository, IPet_has_personalitytraitsRepository pet_Has_Personalitytraits, IUnitOfWork uow)
+        public PetController(IPetRepository petRepository, IPet_has_personalitytraitsRepository pet_Has_PersonalitytraitsRepository, IUnitOfWork uow)
         {
             this.petRepository = petRepository;
-            this.pet_Has_Personalitytraits = pet_Has_Personalitytraits;
+            this.pet_Has_PersonalitytraitsRepository = pet_Has_PersonalitytraitsRepository;
             this.uow = uow;
         }
 
@@ -40,27 +41,27 @@ namespace Petible_api.Controllers
             else return Ok(pet);
         }
 
-        //// GET: api/Pet/quirk/5
-        //[AllowAnonymous]
-        //[HttpGet("quirk/{id}")]
-        //public async Task<IActionResult> GetsQuirkById(string id)
-        //{
-        //    Pet_has_PersonalityTraits petTraits = await pet_Has_Personalitytraits.ListAllById(id);
-        //    if (pet_Has_Personalitytraits == null) return BadRequest();
-        //    else return Ok(petTraits);
-        //}
+		// GET: api/Pet/quirk/5
+        [AllowAnonymous]
+		[HttpGet("quirk/{id}")]
+		public async Task<IActionResult> GetsQuirkById(string id)
+		{
+            List<Pet_has_PersonalityTraits> petList = await pet_Has_PersonalitytraitsRepository.ListAllById(id);
+            if (petList == null) return BadRequest();
+			else return Ok(petList);
+		}
 
-        //// POST: api/Pet/quirk
-        //[HttpGet("quirk/{id}")]
-        //public async Task<IActionResult> GetsQuirkById(string id)
-        //{
-        //    Pet_has_PersonalityTraits petTraits = await pet_Has_Personalitytraits.FindById(id);
-        //    if (pet_Has_Personalitytraits == null) return BadRequest();
-        //    else return Ok(petTraits);
-        //}
+		// POST: api/Pet/quirk
+        [AllowAnonymous]
+		[HttpPost("quirk")]
+		public async Task<IActionResult> PostQuirksById([FromBody]JsonElement json)
+		{
+            
+            return Ok();
+		}
 
-        // PUT: api/Pet
-        [HttpPut]
+		// PUT: api/Pet
+		[HttpPut]
         public async Task<IActionResult> PostsAsync([FromBody] Pet pet)
         {
             try
