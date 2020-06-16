@@ -54,10 +54,24 @@ namespace Petible_api.Controllers
 		// POST: api/Pet/quirk
         [AllowAnonymous]
 		[HttpPost("quirk")]
-		public async Task<IActionResult> PostQuirksById([FromBody]JsonElement json)
+		public async Task<IActionResult> PostQuirksById(string id, [FromQuery(Name = "quirks")]List<int> quirks)
 		{
-            
-            return Ok();
+            try
+            {
+                foreach (int quirk in quirks)
+                {
+                    Pet_has_PersonalityTraits petpersonality = new Pet_has_PersonalityTraits();
+                    petpersonality.pet_id = id;
+                    petpersonality.personalitytraits_id = quirk;
+                    await pet_Has_PersonalitytraitsRepository.Save(petpersonality);
+                }
+                await uow.Commit();
+                return Created();
+            }
+            catch
+			{
+                return BadRequest();
+			}
 		}
 
 		// PUT: api/Pet

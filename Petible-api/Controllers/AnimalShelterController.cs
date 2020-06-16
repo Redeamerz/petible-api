@@ -64,6 +64,7 @@ namespace Petible_api.Controllers
             try
             {
                 await animalShelterRepository.Remove(animalShelter);
+                await uow.Commit();
                 return NoContent();
             }
             catch
