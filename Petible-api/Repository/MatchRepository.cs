@@ -2,6 +2,7 @@
 using NHibernate.Linq;
 using Petible_api.Interfaces;
 using Petible_api.Models;
+using Petible_api.Models.CustomModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,21 @@ namespace Petible_api.Repository
 			match.status = (int)result[3];
 			match.animalShelterEmail = (string)result[4];
 			return match;
+		}
+
+		public async Task<List<MatchForShelter>> GetMatchesByAnimalId(string id)
+		{
+			List<MatchForShelter> matches = new List<MatchForShelter>();
+			var result = await uow.Session.CreateSQLQuery($"SELECT m.user_id, u.username FROM matches m INNER JOIN userinfo u ON u.id = m.user_id WHERE m.pet_id = '{id}'").ListAsync();
+			for (int i = 0; i < result.Count; i++)
+			{
+				var temp = (object[])result[i];
+				MatchForShelter match = new MatchForShelter();
+				match.id = (string)temp[0];
+				match.name = (string)temp[1];
+				matches.Add(match);
+			}
+			return matches;
 		}
 	}
 }
