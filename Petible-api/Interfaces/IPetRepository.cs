@@ -8,6 +8,6 @@ namespace Petible_api.Interfaces
 {
     public interface IPetRepository : IRepository<Pet, string>
     {
-
+        Task<List<Pet>> GetOnShelterId(string id);
     }
 }

@@ -21,6 +21,7 @@ namespace Petible_api.Mapping
             Map(x => x.description).Column("description");
             Map(x => x.inAnimalShelterSince).Column("inanimalsheltersince");
             Map(x => x.fees).Column("fees");
+            Map(x => x.pettype).Column("pettype");
         }
     }
 }

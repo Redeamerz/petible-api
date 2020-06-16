@@ -32,7 +32,7 @@ namespace Petible_api_testing.integration_test
 
             pet.id = "integrationtest1";
             pet.animalshelter_id = "YR8gmUIMOVXz1R4R1a8OZdmjxtJ2";
-            pet.timefree = "1";
+            pet.timefree = 1;
             pet.name = "test123";
             pet.dateOfBirth = new DateTime(2020, 2, 20);
             pet.gender = true;

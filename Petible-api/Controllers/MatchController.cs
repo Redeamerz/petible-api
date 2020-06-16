@@ -7,10 +7,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Petible_api.Interfaces;
 using Petible_api.Models;
+using Petible_api.Models.CustomModels;
 
 namespace Petible_api.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/v1/[controller]")]
     [ApiController]
     public class MatchController : ControllerBase
@@ -29,13 +30,21 @@ namespace Petible_api.Controllers
         {
             return Ok(await matchesRepository.ListAll());
         }
-
+        
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(string id)
         {
             Match match = await matchesRepository.FindById(id);
             if (match == null) return BadRequest();
             else return Ok(match);
+        }
+
+        [HttpGet("pet/{id}")]
+        public async Task<IActionResult> GetMatchesByAnimalId(string id)
+        {
+            List<MatchForShelter> matches = await matchesRepository.GetMatchesByAnimalId(id);
+            if (matches == null) return BadRequest();
+            else return Ok(matches);
         }
 
         [HttpPut]

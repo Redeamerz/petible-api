@@ -9,7 +9,7 @@ namespace Petible_api.Models
     {
         public virtual string id { get; set; }
         public virtual string animalshelter_id { get; set; }
-        public virtual string timefree { get; set; }
+        public virtual int timefree { get; set; }
         public virtual string name { get; set; }
         public virtual DateTime dateOfBirth { get; set; }
         public virtual bool gender { get; set; }
@@ -17,5 +17,6 @@ namespace Petible_api.Models
         public virtual DateTime inAnimalShelterSince { get; set; }
         public virtual int fees { get; set; }
         public virtual int[] quirks { get; set; }
+        public virtual string pettype { get; set; }
     }
 }

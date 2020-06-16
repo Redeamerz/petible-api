@@ -8,7 +8,7 @@ using Petible_api.Models;
 
 namespace Petible_api.Controllers
 {
-	[Authorize]
+	//[Authorize]
     [Route("api/v1/[controller]")]
     [ApiController]
     public class PetController : ControllerBase
@@ -31,12 +31,19 @@ namespace Petible_api.Controllers
             return Ok(await petRepository.ListAll());
         }
 
-
         // GET: api/Pet/5
         [HttpGet("{id}")]
         public async Task<IActionResult> Gets(string id)
         {
             Pet pet = await petRepository.FindById(id);
+            if (pet == null) return BadRequest();
+            else return Ok(pet);
+        }
+
+        [HttpGet("shelter/{id}")]
+        public async Task<IActionResult> GetOnShelterId(string id)
+        {
+            List<Pet> pet = await petRepository.GetOnShelterId(id);
             if (pet == null) return BadRequest();
             else return Ok(pet);
         }
