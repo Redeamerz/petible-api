@@ -17,12 +17,20 @@ namespace Petible_api.Repository
 		{
 			this.uow = uow;
 		}
-		public async Task<List<Pet_has_PersonalityTraits>> ListAllById(string id)
+		public async Task<List<Quirk>> ListAllById(string id)
 		{
-			List<Pet_has_PersonalityTraits> list = await uow.Session.Query<Pet_has_PersonalityTraits>()
-				.Where(pet => id.Contains(pet.pet_id))
-				.Select(pet => pet).ToListAsync();
-			return list;
+			List<Quirk> quirks = new List<Quirk>();
+			var result = await uow.Session.CreateSQLQuery($"SELECT p.Id, p.personality, p.description FROM pet_has_personalitytraits ph INNER JOIN personalitytraits p ON ph.personalitytraits_id = p.Id WHERE ph.pet_id = '{id}'").ListAsync();
+			for (int i = 0; i < result.Count; i++)
+			{
+				var temp = (object[])result[i];
+				Quirk quirk = new Quirk();
+				quirk.id = (int)temp[0];
+				quirk.name = (string)temp[1];
+				quirk.description = (string)temp[2];
+				quirks.Add(quirk);
+			}
+			return quirks;
 		}
 	}
 }

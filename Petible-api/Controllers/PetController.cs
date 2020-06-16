@@ -53,7 +53,7 @@ namespace Petible_api.Controllers
 		[HttpGet("quirk/{id}")]
 		public async Task<IActionResult> GetsQuirkById(string id)
 		{
-            List<Pet_has_PersonalityTraits> petList = await pet_Has_PersonalitytraitsRepository.ListAllById(id);
+            List<Quirk> petList = await pet_Has_PersonalitytraitsRepository.ListAllById(id);
             if (petList == null) return BadRequest();
 			else return Ok(petList);
 		}
