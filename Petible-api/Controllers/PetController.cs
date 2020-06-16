@@ -89,7 +89,7 @@ namespace Petible_api.Controllers
             {
                 await petRepository.Save(pet);
                 await uow.Commit();
-                return Created("petible.nl/pet", pet.id);
+                return Created("new pet created", pet);
             }
             catch
             {
