@@ -73,7 +73,7 @@ namespace Petible_api.Controllers
                     await pet_Has_PersonalitytraitsRepository.Save(petpersonality);
                 }
                 await uow.Commit();
-                return Created();
+                return Created("petpersonality",id);
             }
             catch
 			{
