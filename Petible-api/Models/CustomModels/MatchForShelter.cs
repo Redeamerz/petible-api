@@ -9,5 +9,8 @@ namespace Petible_api.Models.CustomModels
     {
         public virtual string id { get; set; }
         public virtual string name { get; set; }
+        public virtual int status { get; set; }
+        public virtual string match_id { get; set; }
+
     }
 }

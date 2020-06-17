@@ -41,13 +41,15 @@ namespace Petible_api.Repository
 		public async Task<List<MatchForShelter>> GetMatchesByAnimalId(string id)
 		{
 			List<MatchForShelter> matches = new List<MatchForShelter>();
-			var result = await uow.Session.CreateSQLQuery($"SELECT * FROM matches m INNER JOIN userinfo u ON u.id = m.user_id WHERE m.pet_id = '{id}'").ListAsync();
+			var result = await uow.Session.CreateSQLQuery($"SELECT m.user_id, u.username, m.status, m.id FROM matches m INNER JOIN userinfo u ON u.id = m.user_id WHERE m.pet_id = '{id}'").ListAsync();
 			for (int i = 0; i < result.Count; i++)
 			{
 				var temp = (object[])result[i];
 				MatchForShelter match = new MatchForShelter();
 				match.id = (string)temp[0];
 				match.name = (string)temp[1];
+				match.status = (int)temp[2];
+				match.match_id = (string)temp[3];
 				matches.Add(match);
 			}
 			return matches;
