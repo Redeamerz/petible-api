@@ -30,9 +30,10 @@ namespace Petible_api_testing.integration_test
             client.BaseAddress = new Uri("https://127.0.0.1:5001/api/V1/");
             SetBearer();
 
-            match.id = "integrationtest1";
-            match.pet_id = "integrationtesting2";
-            match.user_id = "integrationtesting";
+            match.id = "integrationtest999998";
+            match.pet_id = "integrationtest";
+            match.user_id = "user-id-1";
+            match.petName = "test";
             match.status = 3;
         }
 
@@ -97,6 +98,26 @@ namespace Petible_api_testing.integration_test
         public async Task GetByIdBadRequest()
         {
             var request = "match/integrationtest123";
+
+            var response = await client.GetAsync(request);
+
+            Assert.AreEqual(System.Net.HttpStatusCode.BadRequest, response.StatusCode);
+        }
+
+        [TestMethod]
+        public async Task GetByUserIdOk()
+        {
+            var request = "match/user/user-id-1";
+
+            var response = await client.GetAsync(request);
+
+            Assert.AreEqual(System.Net.HttpStatusCode.OK, response.StatusCode);
+        }
+
+        [TestMethod]
+        public async Task GetByUserIdBadRequest()
+        {
+            var request = "match/user/";
 
             var response = await client.GetAsync(request);
 

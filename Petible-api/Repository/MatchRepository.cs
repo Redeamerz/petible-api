@@ -31,10 +31,8 @@ namespace Petible_api.Repository
 					match.petName = (string)temp[2];
 					match.status = (int)temp[3];
 					match.animalShelterEmail = (string)temp[4];
-					matches.Add(match);
-				
-			}
-			
+					matches.Add(match);	
+			}		
 			return matches;
 		}
 
