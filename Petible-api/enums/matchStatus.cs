@@ -7,8 +7,9 @@ namespace Petible_api.enums
 {
 	public enum matchStatus
 	{
-		DENIED = 1,
-		AWAITING,
-		ACCEPTED
+		WAITING = 1,
+		DECLINED,
+		ACCEPTED,
+		NO_INTEREST_FROM_USER
 	}
 }
