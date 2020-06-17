@@ -37,7 +37,7 @@
       }
     },
     "Petible_api_Production": {
-      "commandName": "Executable",
+      "commandName": "Project",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Production"
       }
