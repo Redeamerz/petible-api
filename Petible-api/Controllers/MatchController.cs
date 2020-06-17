@@ -73,9 +73,16 @@ namespace Petible_api.Controllers
         [HttpDelete]
         public async Task<IActionResult> Delete([FromBody] Match match)
         {
-            await matchesRepository.Remove(match);
-            await uow.Commit();
-            return NoContent();
+			try
+			{
+				await matchesRepository.Remove(match);
+				await uow.Commit();
+				return NoContent();
+			}
+			catch (Exception)
+			{
+                return BadRequest();
+			}
         }
     }
 }

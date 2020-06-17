@@ -104,6 +104,7 @@ namespace Petible_api.Controllers
             try
             {
                 await petRepository.Remove(pet);
+                uow.Commit();
                 return NoContent();
             }
             catch
