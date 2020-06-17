@@ -41,6 +41,7 @@ namespace Petible_api.Controllers
         [HttpPut]
         public async Task<IActionResult> Post([FromBody] Review review)
         {
+            if (review.id == null) review.id = Guid.NewGuid().ToString();
             try
             {
                 await reviewRepository.Save(review);

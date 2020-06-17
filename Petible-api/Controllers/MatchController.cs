@@ -58,6 +58,7 @@ namespace Petible_api.Controllers
         [HttpPut]
         public async Task<IActionResult> Post([FromBody] Match match)
         {
+            if (match.id == null) Guid.NewGuid().ToString();
             try
             {
                 await matchesRepository.Save(match);

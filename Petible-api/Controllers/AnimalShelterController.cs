@@ -45,6 +45,7 @@ namespace Petible_api.Controllers
         [HttpPut]
         public async Task<IActionResult> PostsAsync([FromBody] AnimalShelter animalShelter)
         {
+            if (animalShelter.id == null) animalShelter.id = Guid.NewGuid().ToString();
             try
             {
                 await animalShelterRepository.Save(animalShelter);

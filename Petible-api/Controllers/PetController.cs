@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -85,6 +86,7 @@ namespace Petible_api.Controllers
 		[HttpPut]
         public async Task<IActionResult> PostsAsync([FromBody] Pet pet)
         {
+            if (pet.id == null) pet.id = Guid.NewGuid().ToString();
             try
             {
                 await petRepository.Save(pet);
@@ -104,7 +106,7 @@ namespace Petible_api.Controllers
             try
             {
                 await petRepository.Remove(pet);
-                uow.Commit();
+                await uow.Commit();
                 return NoContent();
             }
             catch

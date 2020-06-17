@@ -41,7 +41,7 @@ namespace Petible_api.Repository
 		public async Task<List<MatchForShelter>> GetMatchesByAnimalId(string id)
 		{
 			List<MatchForShelter> matches = new List<MatchForShelter>();
-			var result = await uow.Session.CreateSQLQuery($"SELECT m.user_id, u.username FROM matches m INNER JOIN userinfo u ON u.id = m.user_id WHERE m.pet_id = '{id}'").ListAsync();
+			var result = await uow.Session.CreateSQLQuery($"SELECT * FROM matches m INNER JOIN userinfo u ON u.id = m.user_id WHERE m.pet_id = '{id}'").ListAsync();
 			for (int i = 0; i < result.Count; i++)
 			{
 				var temp = (object[])result[i];
@@ -56,7 +56,7 @@ namespace Petible_api.Repository
 		public async Task<List<MatchForShelter>> GetMatchesByUserId(string id)
 		{
 			List<MatchForShelter> matches = new List<MatchForShelter>();
-			var result = await uow.Session.CreateSQLQuery($"SELECT m.user_id, u.username FROM matches m INNER JOIN userinfo u ON u.id = m.user_id WHERE m.user_id = '{id}'").ListAsync();
+			var result = await uow.Session.CreateSQLQuery($"SELECT * FROM matches m INNER JOIN userinfo u ON u.id = m.user_id WHERE m.user_id = '{id}'").ListAsync();
 			for (int i = 0; i < result.Count; i++)
 			{
 				var temp = (object[])result[i];

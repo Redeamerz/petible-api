@@ -48,6 +48,7 @@ namespace Petible_api.Controllers
         [HttpPut]
         public async Task<IActionResult> Put([FromBody]User user)
         {
+            if (user.id == null) user.id = Guid.NewGuid().ToString();
             try
             {
                 await userRepository.Save(user);
