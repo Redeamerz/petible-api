@@ -31,7 +31,7 @@ namespace Petible_api_testing.integration_test
             SetBearer();
 
             match.id = "integrationtest1";
-            match.pet_id = "integrationtest1";
+            match.pet_id = "integrationtesting2";
             match.user_id = "integrationtesting";
             match.status = 3;
         }
