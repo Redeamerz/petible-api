@@ -1,33 +1,19 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.StaticFiles;
-using Microsoft.EntityFrameworkCore;
 using Petible_api.NHibernate;
 using Petible_api.Interfaces;
 using Petible_api.Repository;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using AspNetCore.Firebase.Authentication;
 using Microsoft.Net.Http.Headers;
-using Google.Protobuf.WellKnownTypes;
-using System.Text.RegularExpressions;
-using Petible_api.Models;
 
 namespace Petible_api
 {
-    public class Startup
+	public class Startup
     {
         public Startup(IConfiguration configuration)
         {
@@ -87,7 +73,6 @@ namespace Petible_api
             services.AddTransient<IPetRepository, PetRepository>();
             services.AddTransient<IPet_has_personalitytraitsRepository, Pet_has_PersonalityTraitsRepository>();
             services.AddControllersWithViews();
-            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
